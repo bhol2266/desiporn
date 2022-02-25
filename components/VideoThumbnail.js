@@ -68,7 +68,6 @@ function VideoThumbnail({ details }) {
                             <img
                                 loading="lazy"
                                 src={video.thumbnail}
-                                src={ImageSrc}
                                 height={360}
                                 width={480}
                             ></img>
