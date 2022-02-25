@@ -25,9 +25,7 @@ import Link from 'next/link';
 
 var navigation = [
     { name: 'Home', href: '/', current: true },
-    { name: 'Categories', href: '/category', current: false },
-    { name: 'Upload Videos', href: '#', current: false },
-    { name: 'Pics and Gifs', href: '/pics/1', current: false },
+    { name: 'Leaked Pictures', href: '/pics/1', current: false },
     { name: 'Community', href: '#', current: false },
     { name: 'Live Cams', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
     { name: 'Meet & Fuck', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
@@ -56,21 +54,7 @@ function Navbar() {
 
 
 
-    useEffect(() => {
 
-        if (localStorage.getItem("coutryBlockedorNot") === "blocked") {
-            navigation = [
-                { name: 'Home', href: '/', current: true },
-                { name: 'Categories', href: '/josporn/category', current: false },
-                { name: 'Upload Videos', href: '#', current: false },
-                { name: 'Pics and Gifs', href: '/pics/1', current: false },
-                { name: 'Community', href: '#', current: false },
-                { name: 'Live Cams', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
-                { name: 'Meet & Fuck', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },
-            ]
-        }
-
-    }, [])
 
 
 
@@ -130,7 +114,7 @@ function Navbar() {
 
         <div>
 
-            <div className="bg-red-500 p-2  shadow-md lg:hidden">
+            <div className="bg-green-600 p-2  shadow-md lg:hidden">
 
                 <Disclosure as="nav" >
                     {({ open }) => (
@@ -140,7 +124,7 @@ function Navbar() {
                                 <div className='flex items-center space-x-1' >
 
                                     <Link href='/'>
-                                        <p className=' align-center text-center font-body text-3xl pl-1 pr-1 cursor-pointer lg:text-left lg:ml-6'>ChutLunds</p>
+                                        <p className=' align-center text-center font-body text-3xl pl-1 pr-1 cursor-pointer lg:text-left lg:ml-6'>Desi Porn</p>
                                     </Link>
                                     {location &&
                                         <div className='cursor-pointer' onClick={handleClickFlag}>
@@ -240,12 +224,12 @@ function Navbar() {
 
 
                 {/* Navbar */}
-                <div className='flex items-center justify-between bg-red-500 pt-2 pb-2 '>
+                <div className='flex items-center justify-between bg-green-600 pt-2 pb-2 '>
 
                     <div className='flex items-center space-x-1 md:space-x-3 ' >
                         <Link href='/'>
 
-                            <p className=' align-center text-center font-body text-4xl cursor-pointer lg:text-left lg:ml-6'>ChutLunds.in</p>
+                            <p className=' align-center text-center font-body text-4xl cursor-pointer lg:text-left lg:ml-6'>Desi Porn.in</p>
 
                         </Link>
                         {location &&
@@ -313,14 +297,14 @@ function Navbar() {
 
 
 
-                <div className='w-full bg-black items-center justify-around  p-1 flex'>
+                <div className='w-full bg-green-500  items-center justify-around   flex mb-2 shadow-lg'>
                     {navigation.map(item => {
 
                         return (
                             <Link href={item.href} key={item.name}>
 
                                 <a>
-                                    <p key={item.name} className='text-lg cursor-pointer text-yellow-500'>{item.name}</p>
+                                    <p key={item.name} className='text-xl font-semibold cursor-pointer p-1 text-black hover:text-red-700'>{item.name}</p>
                                 </a>
                             </Link>
                         )
@@ -328,7 +312,7 @@ function Navbar() {
 
 
                     <a target="_blank" href="https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers" rel="noopener noreferrer">
-                        <p className='text-lg cursor-pointer text-yellow-500'>Live Sex</p>
+                        <p className='text-xl font-semibold cursor-pointer p-1 text-black hover:text-red-700'>Live Sex</p>
                     </a>
 
 

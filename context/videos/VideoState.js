@@ -1,6 +1,5 @@
 import videosContext from "./videosContext";
 import { useEffect, useState } from "react";
-import data from '../../JsonData/BestVideos.json'
 import { useRouter } from "next/router";
 
 
@@ -15,7 +14,7 @@ const VideoState = (props) => {
 
     const router = useRouter();
 
-    const [videos, setvideos] = useState(data);
+    const [videos, setvideos] = useState([]);
     const [spinnerLoading, setspinnerLoading] = useState(false)
 
     const [DarkTheme, setDarkTheme] = useState('')
