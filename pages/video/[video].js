@@ -3,9 +3,10 @@ import {
 } from '@heroicons/react/outline';
 import {
     EyeIcon, MinusIcon, PlayIcon,
-    PlusIcon, ThumbUpIcon, FilmIcon,ThumbDownIcon
+    PlusIcon, ThumbUpIcon, FilmIcon, ThumbDownIcon
 } from '@heroicons/react/solid';
 import cheerio from 'cheerio';
+import Head from 'next/head';
 import fetchdata from 'node-fetch';
 import { useContext, useEffect, useState } from 'react';
 import Videos from '../../components/Videos';
@@ -18,7 +19,7 @@ import Videos from '../../components/Videos';
 
 
 
-function Videoplayer({ video_link, video_details,relatedVideos }) {
+function Videoplayer({ video_link, video_details, relatedVideos }) {
 
 
     const [data, setdata] = useState({});
@@ -29,78 +30,79 @@ function Videoplayer({ video_link, video_details,relatedVideos }) {
     return (
         <>
 
+            <Head>
+                <title>{video_details.title}</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+            </Head>
 
 
 
+            <div>
+                <p className='text-2xl pl-2 '>{video_details.title}</p>
 
-                <div>
-                    <p className='text-2xl pl-2 '>{video_details.title}</p>
+                {/* <div className='flex space-x-2 sm:space-x-6'>
 
-                    <div className='flex space-x-2 sm:space-x-6'>
-
-                        <div className='flex items-center'>
-                            <ClockIcon className='icon hover:scale-100' />
-                            <p className='text-xs font-bold'>{video_details.duration}</p>
-                        </div>
-                        <div className='flex items-center'>
-                            <FilmIcon className='icon hover:scale-100' />
-                            <p className='text-xs font-bold'> 480p, 720p, 1080p, 4K</p>
-                        </div>
-
+                    <div className='flex items-center'>
+                        <ClockIcon className='icon hover:scale-100' />
+                        <p className='text-xs font-bold'>{video_details.duration}</p>
+                    </div>
+                    <div className='flex items-center'>
+                        <FilmIcon className='icon hover:scale-100' />
+                        <p className='text-xs font-bold'> 480p, 720p, 1080p, 4K</p>
                     </div>
 
-               
+                </div> */}
 
 
-                    <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
-
-                        <div className=' hover:brightness-75 group  relative'>
 
 
-                            <video autoPlay='autoplay' poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
-                                <source src={videolinkState} type="video/mp4" />
+                <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
 
-                            </video>
-                        </div>
-                        <div className="flex justify-start space-x-10">
+                    <div className=' hover:brightness-75 group  relative'>
 
-                            <div className="flex justify-center items-center ">
-                                <ClockIcon className="icon text-red-500" />
-                                <p>{video_details.duration}</p>
-                            </div>
-                            <div className="flex justify-center items-center ">
-                                <ThumbUpIcon className="icon text-yellow-400" />
-                                <p>{video_details.liked}</p>
-                            </div>
-                            <div className="flex justify-center items-center ">
-                                <ThumbDownIcon className="icon text-yellow-400" />
-                                <p>{video_details.disliked}</p>
-                            </div>
-                        
 
-                        </div>
-                    
+                        <video autoPlay='autoplay' poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
+                            <source src={videolinkState} type="video/mp4" />
+
+                        </video>
                     </div>
+                    <div className="flex justify-start space-x-10">
 
 
+                        <div className="flex justify-center items-center ">
+                            <ThumbUpIcon className="icon text-red-400" />
+                            <p>{video_details.liked}</p>
+                        </div>
+                        <div className="flex justify-center items-center ">
+                            <ThumbDownIcon className="icon text-green-400" />
+                            <p>{video_details.disliked}</p>
+                        </div>
 
 
-           
-
-                    <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
-                        <p className='font-bold text-red-500 text-xl'>Videos related to</p>
-                        <p className='font-bold pl-1'>{video_details.title}</p>
                     </div>
-                    {videolinkState &&
-                        <Videos data={relatedVideos} />
-                    }
-
-                    
-
 
                 </div>
 
-            
+
+
+
+
+
+                <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
+                    <p className='font-bold text-red-500 text-xl'>Videos related to</p>
+                    <p className='font-bold pl-1'>{video_details.title}</p>
+                </div>
+                {videolinkState &&
+                    <Videos data={relatedVideos} />
+                }
+
+
+
+
+            </div>
+
+
 
             {/* <Outstreams />
             <RecommendedAds /> */}
@@ -120,21 +122,65 @@ export default Videoplayer
 
 export async function getServerSideProps(context) {
 
-    const { link, title, duration, liked, disliked, thumbnail } = context.query;
 
-    const videos_details = {
-        link: link,
-        title: title,
-        duration: duration,
-        liked: liked,
-        disliked: disliked,
-        thumbnail: thumbnail,
-    }
+    const { video } = context.query;
+    const videoid = video.substring(0, video.indexOf("*"))
+    const video_name = video.substring(video.indexOf("*") + 1, video.length).trim();
+
+
+
+    console.log(videoid);
+    console.log(video_name);
+
+
+
+
 
 
     var video_link = ""
     var relatedVideos = []
+    var video_details = {}
+
     const scrape = async (url) => {
+
+
+
+        const response = await fetchdata(url)
+        const body = await response.text();
+        const $ = cheerio.load(body)
+
+
+        //Video_details
+        var liked = ""
+        var disliked = ""
+        var thumbnail = ""
+
+
+        $('#ics-lk').each((i, el) => {
+            const data = $(el).text();
+            liked = data
+
+        })
+        $('#ics-dlk').each((i, el) => {
+            const data = $(el).text();
+            disliked = data
+
+        })
+        $('#video-player').each((i, el) => {
+            const data = $(el).attr('poster');
+            thumbnail = data
+
+        })
+
+        video_details = {
+            title: video_name,
+            liked: liked,
+            disliked: disliked,
+            thumbnail: thumbnail,
+        }
+
+
+        //Related Videos 
 
         var TitleArray = []
         var liked = []
@@ -142,12 +188,6 @@ export async function getServerSideProps(context) {
         var durationArray = []
         var hrefArray = []
         var thumbnail = []
-
-
-        const response = await fetchdata(url)
-        const body = await response.text();
-        const $ = cheerio.load(body)
-
 
 
         $('#video-player source').each((i, el) => {
@@ -208,18 +248,17 @@ export async function getServerSideProps(context) {
             })
         }
 
-
-
     }
-    await scrape(link)
 
-    console.log(videos_details);
+
+    await scrape(`https://justindianporn.me/video/${videoid}/${video_name.replace(/ /g, "-").toLowerCase()}html`)
+
 
     return {
         props: {
-            video_details: videos_details,
-            video_link:video_link,
-            relatedVideos:relatedVideos
+            video_details: video_details,
+            video_link: video_link,
+            relatedVideos: relatedVideos
         }
     }
 

@@ -36,6 +36,7 @@ export async function getServerSideProps(context) {
 
     const { category } = context.query;
 
+
     var dataArray = []
 
     const scrape = async (url) => {
@@ -111,7 +112,7 @@ export async function getServerSideProps(context) {
     }
     await scrape(`https://justindianporn.me/categories/${category.trim().toLowerCase().replace(" ", "-")}`)
 
-    console.log(`https://justindianporn.me/categories/${category.trim().toLowerCase().replace(" ", "-")}`);
+  
 
 
 
