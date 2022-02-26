@@ -129,9 +129,6 @@ export async function getServerSideProps(context) {
 
 
 
-    console.log(videoid);
-    console.log(video_name);
-
 
 
 

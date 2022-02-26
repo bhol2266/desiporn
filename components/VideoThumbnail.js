@@ -21,11 +21,8 @@ function VideoThumbnail({ details }) {
 
     const video = details;
 
-    // https://justindianporn.me/video/132800/beautiful-sexy-indian-girl-showing-and-rubbing-pussy.html
-    //Extract video id from details.hrefArray
     const key=details.hrefArray.substring(details.hrefArray.indexOf('video/')+6,details.hrefArray.length)
     const video_id=key.substring(0,key.indexOf('/'))
-    console.log(video_id);
 
 
     const [ImageSrc] = useState(video.thumbnail);
@@ -64,20 +61,12 @@ function VideoThumbnail({ details }) {
 
                     <div className={`relative`}
                     >
-
-
-
                         <img
                             loading="lazy"
                             src={video.thumbnail}
                             height={360}
                             width={480}
                         ></img>
-
-
-
-
-
                     </div>
 
                     <p className=" font-semibold text-sm sm:text-lg  pl-1 pt-1  whitespace-nowrap overflow-hidden  ">{video.TitleArray}</p>
