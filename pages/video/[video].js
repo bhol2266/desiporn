@@ -38,6 +38,7 @@ function Videoplayer( {  videoid, video_name }) {
             setvideolinkState(content.video_link)
             setvideo_details(content.video_details)
             console.log(content.video_details);
+            console.log(content.video_link);
         }
 
         getData()
