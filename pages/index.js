@@ -109,7 +109,10 @@ export async function getStaticProps() {
 
 
   }
+
+  //Data is loaded and saved to local JSON file
   // await scrape(`https://justindianporn.me/`)
+
 
 console.log(dataArray);
   return {

@@ -1,14 +1,9 @@
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react";
-import Header from "../../components/searchPage/Header";
-import Videos from "../../components/Videos";
-
-import { useContext } from 'react'
-import videosContext from '../../context/videos/videosContext'
-import { BeatLoader } from 'react-spinners'
 import cheerio from 'cheerio';
+import { useRouter } from "next/router";
 import fetchdata from 'node-fetch';
 import Sidebar from "../../components/Sidebar";
+import Videos from "../../components/Videos";
+
 
 
 function Category({ video_collection }) {

@@ -1,15 +1,11 @@
-import {
-    ClockIcon
-} from '@heroicons/react/outline';
-import {
-    EyeIcon, MinusIcon, PlayIcon,
-    PlusIcon, ThumbUpIcon, FilmIcon, ThumbDownIcon
-} from '@heroicons/react/solid';
+import { ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/solid';
 import cheerio from 'cheerio';
 import Head from 'next/head';
+import Script from 'next/script';
 import fetchdata from 'node-fetch';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Videos from '../../components/Videos';
+import $ from 'jquery'
 
 
 
@@ -19,11 +15,33 @@ import Videos from '../../components/Videos';
 
 
 
-function Videoplayer({ video_link, video_details, relatedVideos }) {
+function Videoplayer( {  videoid, video_name }) {
+    // { video_link, video_details, relatedVideos, videoid, video_name }  //Props
+
+    const [video_details, setvideo_details] = useState({});
+    const [videolinkState, setvideolinkState] = useState('');
 
 
-    const [data, setdata] = useState({});
-    const [videolinkState, setvideolinkState] = useState(video_link);
+
+    useEffect(() => {
+        async function getData() {
+
+            const rawResponse = await fetch('/api/webscrap', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ videoid: videoid, video_name: video_name })
+            });
+            const content = await rawResponse.json();
+            setvideolinkState(content.video_link)
+            setvideo_details(content.video_details)
+            console.log(content.video_details);
+        }
+
+        getData()
+    }, [])
 
 
 
@@ -38,10 +56,12 @@ function Videoplayer({ video_link, video_details, relatedVideos }) {
 
 
 
-            <div>
-                <p className='text-2xl pl-2 '>{video_details.title}</p>
+            {videolinkState &&
+                <div>
+                    <p className='text-2xl pl-2 '>{video_details.title}</p>
 
-                {/* <div className='flex space-x-2 sm:space-x-6'>
+
+                    {/* <div className='flex space-x-2 sm:space-x-6'>
 
                     <div className='flex items-center'>
                         <ClockIcon className='icon hover:scale-100' />
@@ -57,50 +77,50 @@ function Videoplayer({ video_link, video_details, relatedVideos }) {
 
 
 
-                <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
+                    <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
 
-                    <div className=' hover:brightness-75 group  relative'>
-
-
-                        <video autoPlay='autoplay' poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
-                            <source src={videolinkState} type="video/mp4" />
-
-                        </video>
-                    </div>
-                    <div className="flex justify-start space-x-10">
+                        <div className=' hover:brightness-75 group  relative'>
 
 
-                        <div className="flex justify-center items-center ">
-                            <ThumbUpIcon className="icon text-red-400" />
-                            <p>{video_details.liked}</p>
+                            <video autoPlay='autoplay' poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
+                                <source src={videolinkState} type="video/mp4" />
+
+                            </video>
                         </div>
-                        <div className="flex justify-center items-center ">
-                            <ThumbDownIcon className="icon text-green-400" />
-                            <p>{video_details.disliked}</p>
-                        </div>
+                        <div className="flex justify-start space-x-10">
 
+
+                            <div className="flex justify-center items-center ">
+                                <ThumbUpIcon className="icon text-red-400" />
+                                <p>{video_details.liked}</p>
+                            </div>
+                            <div className="flex justify-center items-center ">
+                                <ThumbDownIcon className="icon text-green-400" />
+                                <p>{video_details.disliked}</p>
+                            </div>
+
+
+                        </div>
 
                     </div>
 
-                </div>
 
 
 
 
 
-
-                <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
+                    {/* <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
                     <p className='font-bold text-red-500 text-xl'>Videos related to</p>
                     <p className='font-bold pl-1'>{video_details.title}</p>
                 </div>
                 {videolinkState &&
                     <Videos data={relatedVideos} />
-                }
+                } */}
 
 
 
 
-            </div>
+                </div>}
 
 
 
@@ -126,6 +146,8 @@ export async function getServerSideProps(context) {
     const { video } = context.query;
     const videoid = video.substring(0, video.indexOf("*"))
     const video_name = video.substring(video.indexOf("*") + 1, video.length).trim();
+
+
 
 
 
@@ -255,7 +277,9 @@ export async function getServerSideProps(context) {
         props: {
             video_details: video_details,
             video_link: video_link,
-            relatedVideos: relatedVideos
+            relatedVideos: relatedVideos,
+            videoid: videoid,
+            video_name: video_name
         }
     }
 
