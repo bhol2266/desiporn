@@ -6,8 +6,7 @@ import fetchdata from 'node-fetch';
 import { useEffect, useState } from 'react';
 import Videos from '../../components/Videos';
 import $ from 'jquery'
-import json from "../../JsonData/indian.json"
-
+import localVideo from "../../JsonData/indian.json"
 
 
 
@@ -23,18 +22,9 @@ function Videoplayer({ video_link, video_details, relatedVideos }) {
     const [data, setdata] = useState({});
     const [videolinkState, setvideolinkState] = useState(video_link);
 
+    console.log(localVideo);
 
     useEffect(() => {
-        // fetch('https://justindianporn.me/').then(function(response) {
-        //     return response.text();
-        // }).then(function(string) {
-        //     elem.innerHTML = string;
-        //     console.log(   elem.innerHTML);
-        // });
-
-        $.get('https://justindianporn.me/', function (data) {
-            console.log(data);
-        });
 
     }, [])
 
@@ -51,7 +41,7 @@ function Videoplayer({ video_link, video_details, relatedVideos }) {
 
 
             <div>
-                <p className='text-2xl pl-2 '>{json.TitleArray}</p>
+                <p className='text-2xl pl-2 '></p>
 
                 <Script src="../../Browserify/Videolink.js" strategy="lazyOnload" />
 
@@ -77,7 +67,7 @@ function Videoplayer({ video_link, video_details, relatedVideos }) {
 
 
                         <video autoPlay='autoplay' poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
-                            <source src={json.video_link} type="video/mp4" />
+                            <source src={localVideo.videos[1].video_link} type="video/mp4" />
 
                         </video>
                     </div>
