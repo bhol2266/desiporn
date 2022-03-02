@@ -8,9 +8,10 @@ import VideoThumbnail from '../components/VideoThumbnail';
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
 import videos from "../JsonData/HomePage.json"
+import json from "../JsonData/indian.json"
 export default function Home() {
 
-
+console.log(json.videos);
 
   return (
     <div >
