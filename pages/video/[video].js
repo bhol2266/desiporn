@@ -321,6 +321,7 @@ export async function getServerSideProps(context) {
             screenshotsArray: screenshotsArray,
             tagsArray: tagsArray,
         }
+        console.log(video_qualities_available_withURL);
 
     }
 
