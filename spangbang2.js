@@ -467,3 +467,16 @@ for (let index = 0; index < finalDataArray.length; index++) {
 }
 
 fs.writeFileSync(`indian.json`, JSON.stringify(finalDataArray));
+
+
+
+
+const video ={
+    hrefArray: 'https://spankbang.com/3wj7i/video/indian+desi+1'}
+
+    var key_title =video.hrefArray.substring(video.hrefArray.indexOf('com/')+4,video.hrefArray.length)
+    var key =key_title.substring(0,key_title.indexOf('/video'))
+    var title =key_title.substring(key_title.indexOf('video/')+6,key_title.length)
+
+    console.log(key);
+    console.log(title);

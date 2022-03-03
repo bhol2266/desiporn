@@ -25,6 +25,7 @@ import Link from 'next/link';
 
 var navigation = [
     { name: 'Home', href: '/', current: true },
+    { name: 'Category', href: '/category', current: false },
     { name: 'Leaked Pictures', href: '/pics/1', current: false },
     { name: 'Community', href: '#', current: false },
     { name: 'Live Cams', href: "https://chaturbate.com/in/?tour=LQps&campaign=3v7pk&track=default&room=ukdevelopers", current: false },

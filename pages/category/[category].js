@@ -32,80 +32,108 @@ export async function getServerSideProps(context) {
     const { category } = context.query;
 
 
-    var dataArray = []
+    var finalDataArray = []
+
+
 
     const scrape = async (url) => {
-
-        var TitleArray = []
-        var liked = []
-        var disliked = []
-        var durationArray = []
-        var hrefArray = []
-        var thumbnail = []
-
-
-
-        const response = await fetchdata(url)
-        const body = await response.text();
-        const $ = cheerio.load(body)
-
-
-
-        $('.info a').each((i, el) => {
-            const data = $(el).text().trim();
-            TitleArray.push(data)
-
-
-        })
-        $('.info a').each((i, el) => {
-
-            const data = $(el).attr('href')
-            hrefArray.push(`https://justindianporn.me${data}`)
-
-        })
-
-
-        $('.image a img').each((i, el) => {
-
-            const data = $(el).attr('data-src')
-            thumbnail.push(data)
-
-
-        })
-
-        $('.length').each((i, el) => {
-
-            const data = $(el).text().trim();
-            durationArray.push(data)
-
-        })
-        $('.likes.good').each((i, el) => {
-
-            const data = $(el).text().trim();
-            liked.push(data)
-
-        })
-        $('.dislikes.bad').each((i, el) => {
-
-            const data = $(el).text().trim();
-            disliked.push(data)
-
-        })
-
-        for (let Page = 0; Page < TitleArray.length; Page++) {
-            dataArray.push({
-                TitleArray: TitleArray[Page],
-                liked: liked[Page],
-                disliked: disliked[Page],
-                durationArray: durationArray[Page],
-                hrefArray: hrefArray[Page],
-                thumbnail: thumbnail[Page],
-            })
+    
+      var thumbnailArray = []
+      var TitleArray = []
+      var durationArray = []
+      var likedPercentArray = []
+      var viewsArray = []
+      var previewVideoArray = []
+      var hrefArray = []
+    
+      const response = await fetchdata(url)
+      const body = await response.text();
+      const $ = cheerio.load(body)
+    
+    
+    
+    
+    
+      $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
+    
+        const data = $(el).attr("data-src")
+        thumbnailArray.push(data)
+    
+    
+      })
+      $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
+    
+        const data = $(el).attr("alt")
+        TitleArray.push(data)
+    
+    
+      })
+      $('.video-list.video-rotate.video-list-with-ads .video-item .l').each((i, el) => {
+    
+        const data = $(el).text()
+        durationArray.push(data)
+      })
+    
+    
+    
+      $('.video-list.video-rotate.video-list-with-ads .video-item .stats').each((i, el) => {
+    
+        const views = $(el).children().eq(1).text()
+    
+        const likedPercent = $(el).children().eq(2).text()
+        if (views.includes('%')) {
+          likedPercentArray.push(views)
+          viewsArray.push(likedPercent)
+    
+        } else {
+          viewsArray.push(views)
+          likedPercentArray.push(likedPercent)
         }
-
-
+      })
+    
+    
+      $('.video-list.video-rotate.video-list-with-ads .video-item picture img').each((i, el) => {
+    
+        const data = $(el).attr("data-preview")
+        previewVideoArray.push(data)
+      })
+    
+    
+    
+      $('.video-list.video-rotate.video-list-with-ads .video-item').each((i, el) => {
+    
+        const data = $(el).children().eq(1).attr("href")
+        if (data) {
+          hrefArray.push(`https://spankbang.com${data}`)
+        }
+    
+    
+      })
+    
+    
+    
+    
+    
+    
+    
+      for (let index = 0; index < thumbnailArray.length; index++) {
+    
+    
+    
+        finalDataArray.push({
+          thumbnailArray: thumbnailArray[index],
+          TitleArray: TitleArray[index],
+          durationArray: durationArray[index],
+          likedPercentArray: likedPercentArray[index],
+          viewsArray: viewsArray[index],
+          previewVideoArray: previewVideoArray[index],
+          hrefArray: hrefArray[index],
+    
+        })
+      }
     }
-    await scrape(`https://justindianporn.me/categories/${category.trim().toLowerCase().replace(" ", "-")}`)
+    
+    await scrape(` https://spankbang.com/category/${category.toLowerCase().trim()}/?o=hot`)
 
   
 
@@ -113,7 +141,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            video_collection: dataArray,
+            video_collection: finalDataArray,
         }
     }
 

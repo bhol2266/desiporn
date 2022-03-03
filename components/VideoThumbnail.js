@@ -37,22 +37,15 @@ function VideoThumbnail({ details }) {
     const [spinnerloader, setspinnerloader] = useState(false);
 
 
-    // thumbnailArray: video.thumbnailArray,
-    // TitleArray: video.TitleArray,
-    // durationArray: video.durationArray,
-    // likedPercentArray: video.likedPercentArray,
-    // viewsArray: video.viewsArray,
-    // previewVideoArray: video.previewVideoArray,
 
 
     const OnClickHandler = () => {
         const object = {
-            TitleArray: video.TitleArray,
-            link: video.link,
-            duration: video.duration,
-            liked: video.liked,
-            disliked: video.disliked,
-            thumbnail: video.thumbnail,
+            Title: video.TitleArray,
+            duration: video.durationArray,
+            likedPercent: video.likedPercentArray,
+            thumbnail: video.thumbnailArray,
+            views: video.viewsArray,
 
         }
 
@@ -74,9 +67,9 @@ function VideoThumbnail({ details }) {
 
     }
 
-
-
-
+    var key_title =video.hrefArray.substring(video.hrefArray.indexOf('com/')+4,video.hrefArray.length)
+    var keyy =key_title.substring(0,key_title.indexOf('/video'))
+    var title =key_title.substring(key_title.indexOf('video/')+6,key_title.length)
 
     return (
         <div className="hover:z-50 ">
@@ -84,7 +77,7 @@ function VideoThumbnail({ details }) {
                 <title>{video.TitleArray}</title>
             </Head>
 
-            <a href={video.hrefArray} onClick={OnClickHandler} data-title={video.TitleArray} >
+            <a href={`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
                 <div className={` mb-2 animate-fade flex   flex-col justify-center  cursor-pointer  shadow-md  border-2 rounded-lg overflow-hidden	 md:hover:scale-105 transform transition duration-150 bg-white  `}>
 
 
