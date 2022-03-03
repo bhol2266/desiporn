@@ -231,16 +231,13 @@ const scrape2 = async (url) => {
 
 
 
-for (let index = 1; index <= 1; index++) {
+for (let index = 1; index <= 5; index++) {
   await scrape(`https://spankbang.com/s/indian/${index}/`)
 
-  // for (let index = 1; index <= finalDataArray.length; index++) {
-  //   await scrape2(finalDataArray[index].hrefArray)
-  // }
-  // fs.writeFileSync(`indian${index}.json`, JSON.stringify(finalDataArray));
+  console.log(`PAGE-${index} COMPLETED!`);
+  fs.writeFileSync(`JsonData/indian/indian${index}.json`, JSON.stringify(finalDataArray));
 }
 
-console.log(finalDataArray);
 
 
 

@@ -7,11 +7,9 @@ import { useRouter } from 'next/router';
 import VideoThumbnail from '../components/VideoThumbnail';
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
-import videos from "../JsonData/HomePage.json"
-import json from "../JsonData/indian.json"
-export default function Home() {
+import videos from "../JsonData/indian/indian1.json"
+export default function Home({video_collection}) {
 
-console.log(json.videos);
 
   return (
     <div >
@@ -25,7 +23,7 @@ console.log(json.videos);
       <main className="flex ">
         <Sidebar />
 
-        <Videos data={videos.videos} />
+        <Videos data={videos} />
       </main>
 
       <footer >

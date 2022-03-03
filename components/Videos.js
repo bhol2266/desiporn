@@ -18,7 +18,7 @@ function Videos({ data }) {
             {
                 data.map(video => {
                     return (
-                        <VideoThumbnail key={video.TitleArray} details={video} />
+                        <VideoThumbnail key={video.thumbnailArray} details={video} />
                     )
                 })
             }
