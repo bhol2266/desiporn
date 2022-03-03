@@ -2,170 +2,198 @@ import React from 'react'
 
 function Sidebar() {
 
-    const categories = [
+  const categories = [
         {
-            category: 'HD Porn',
-            link: 'https://justindianporn.me/categories/hd-porn/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/1.jpg',
+            Title: 'Amateur'
         },
         {
-            category: 'Amateur',
-            link: 'https://justindianporn.me/categories/amateur/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/2.jpg',
+            Title: 'Anal'
         },
         {
-            category: 'Anal',
-            link: 'https://justindianporn.me/categories/anal/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/3.jpg',
+            Title: 'Asian'
         },
         {
-            category: 'Ass',
-            link: 'https://justindianporn.me/categories/ass/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/4.jpg',
+            Title: 'Babe'
         },
         {
-            category: 'Audio Stories',
-            link: 'https://justindianporn.me/categories/audio-stories/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/5.jpg',
+            Title: 'BBW'
         },
         {
-            category: 'Aunty',
-            link: 'https://justindianporn.me/categories/aunty/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/48.jpg',
+            Title: 'Big Ass'
         },
         {
-            category: 'BBW',
-            link: 'https://justindianporn.me/categories/bbw/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/6.jpg',
+            Title: 'Big Dick'
         },
         {
-            category: 'Bhabhi',
-            link: 'https://justindianporn.me/categories/bhabhi/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/7.jpg',
+            Title: 'Big Tits'
         },
         {
-            category: 'Big Boobs',
-            link: 'https://justindianporn.me/categories/big-boobs/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/41.jpg',
+            Title: 'Blonde'
         },
         {
-            category: 'Big Cock',
-            link: 'https://justindianporn.me/categories/big-cock/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/8.jpg',
+            Title: 'Blowjob'
         },
         {
-            category: 'Blowjob',
-            link: 'https://justindianporn.me/categories/blowjob/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/9.jpg',
+            Title: 'Bondage'
         },
         {
-            category: 'Bollywood',
-            link: 'https://justindianporn.me/categories/bollywood/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/49.jpg',
+            Title: 'Brunette'
         },
         {
-            category: 'Cartoon',
-            link: 'https://justindianporn.me/categories/cartoon/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/50.jpg',
+            Title: 'Cam'
         },
         {
-            category: 'College',
-            link: 'https://justindianporn.me/categories/college/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/38.jpg',
+            Title: 'Compilation'
         },
         {
-            category: 'Dildo',
-            link: 'https://justindianporn.me/categories/dildo/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/10.jpg',
+            Title: 'Creampie'
         },
         {
-            category: 'Gay',
-            link: 'https://justindianporn.me/categories/gay/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/11.jpg',
+            Title: 'Cumshot'
         },
         {
-            category: 'Group Sex',
-            link: 'https://justindianporn.me/categories/group-sex/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/12.jpg',
+            Title: 'Deep Throat'
         },
         {
-            category: 'Hardcore',
-            link: 'https://justindianporn.me/categories/hardcore/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/13.jpg',
+            Title: 'DP'
         },
         {
-            category: 'Hidden cam',
-            link: 'https://justindianporn.me/categories/hidden-cam/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/14.jpg',
+            Title: 'Ebony'
         },
         {
-            category: 'Home Sex',
-            link: 'https://justindianporn.me/categories/home-sex/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/17.jpg',
+            Title: 'Fetish'
         },
         {
-            category: 'House Wife',
-            link: 'https://justindianporn.me/categories/house-wife/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/18.jpg',
+            Title: 'Fisting'
         },
         {
-            category: 'Lesbian',
-            link: 'https://justindianporn.me/categories/lesbian/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/37.jpg',
+            Title: 'Gay'
         },
         {
-            category: 'Maid',
-            link: 'https://justindianporn.me/categories/maid/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/19.jpg',
+            Title: 'Groupsex'
         },
         {
-            category: 'Mallu',
-            link: 'https://justindianporn.me/categories/mallu/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/20.jpg',
+            Title: 'Handjob'
         },
         {
-            category: 'Masturbation',
-            link: 'https://justindianporn.me/categories/masturbation/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/21.jpg',
+            Title: 'Hardcore'
         },
         {
-            category: 'Mature',
-            link: 'https://justindianporn.me/categories/mature/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/39.jpg',
+            Title: 'Hentai'
         },
         {
-            category: 'MMS Scandals',
-            link: 'https://justindianporn.me/categories/mms-scandals/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/15.jpg',
+            Title: 'Homemade'
         },
         {
-            category: 'Mom Sex',
-            link: 'https://justindianporn.me/categories/mom-sex/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/46.jpg',
+            Title: 'Indian'
         },
         {
-            category: 'NRI',
-            link: 'https://justindianporn.me/categories/nri/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/22.jpg',
+            Title: 'Interracial'
         },
         {
-            category: 'Office Sex',
-            link: 'https://justindianporn.me/categories/office-sex/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/47.jpg',
+            Title: 'Japanese'
         },
         {
-            category: 'Outdoor',
-            link: 'https://justindianporn.me/categories/outdoor/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/23.jpg',
+            Title: 'Latina'
         },
         {
-            category: 'POV',
-            link: 'https://justindianporn.me/categories/pov/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/24.jpg',
+            Title: 'Lesbian'
         },
         {
-            category: 'Punjabi',
-            link: 'https://justindianporn.me/categories/punjabi/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/25.jpg',
+            Title: 'Massage'
         },
         {
-            category: 'Saree',
-            link: 'https://justindianporn.me/categories/saree/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/26.jpg',
+            Title: 'Masturbation'
         },
         {
-            category: 'Sex toys',
-            link: 'https://justindianporn.me/categories/sex-toys/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/27.jpg',
+            Title: 'Mature'
         },
         {
-            category: 'Shemale',
-            link: 'https://justindianporn.me/categories/shemale/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/28.jpg',
+            Title: 'MILF'
         },
         {
-            category: 'Shower',
-            link: 'https://justindianporn.me/categories/shower/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/30.jpg',
+            Title: 'POV'
         },
         {
-            category: 'Sister',
-            link: 'https://justindianporn.me/categories/sister/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/40.jpg',
+            Title: 'Redhead'
         },
         {
-            category: 'Teen',
-            link: 'https://justindianporn.me/categories/teen/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/32.jpg',
+            Title: 'Shemale'
         },
         {
-            category: 'Threesome',
-            link: 'https://justindianporn.me/categories/threesome/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/43.jpg',
+            Title: 'Small Tits'
         },
         {
-            category: 'Village',
-            link: 'https://justindianporn.me/categories/village/'
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/33.jpg',
+            Title: 'Solo'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/34.jpg',
+            Title: 'Squirt'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/42.jpg',
+            Title: 'Striptease'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/35.jpg',
+            Title: 'Teen (18+)'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/44.jpg',
+            Title: 'Threesome'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/36.jpg',
+            Title: 'Toy'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/45.jpg',
+            Title: 'Vintage'
+        },
+        {
+            thumbnailImage: 'https://spankbang.com//static/desktop/Images/categories/ids/51.jpg',
+            Title: 'VR'
         }
     ]
 
@@ -173,8 +201,8 @@ function Sidebar() {
         <div className='pt-1 hidden md:flex md:flex-col' >
             {categories.map(category => {
                 return (
-                    <a key={category} href={`/category/${category.category}`}>
-                        <p className="w-44 text-md border-2 border-white hover:bg-red-600 rounded-md text-white  p-1 pl-4 pr-2 cursor-pointer bg-black opacity-75">{category.category}</p>
+                    <a key={category.Title} href={`/category/${category.Title}`}>
+                        <p className="w-44 text-md border-2 border-white hover:bg-red-600 rounded-md text-white  p-1 pl-4 pr-2 cursor-pointer bg-black opacity-75">{category.Title}</p>
                     </a>
                 )
             })}

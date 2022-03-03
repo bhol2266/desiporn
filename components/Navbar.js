@@ -83,14 +83,8 @@ function Navbar() {
         e.preventDefault();
 
         if (e.target[0].value) {
-            if (localStorage.getItem("coutryBlockedorNot") === "blocked" || countryBlocked) {
+            router.push(`/search/${e.target[0].value.trim()}`)
 
-                router.push(`/josporn/search/${e.target[0].value.trim().toLowerCase()}_1`)
-
-            } else {
-                router.push(`/search/${e.target[0].value}`)
-                getVideos(e.target[0].value)
-            }
         }
 
     }
