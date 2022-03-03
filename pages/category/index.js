@@ -3,13 +3,12 @@ import React, { useEffect } from 'react';
 
 
 
+
+
 function Index() {
 
     const router = useRouter();
 
-    useEffect(() => {
-        console.log('useEffect');
-    }, [])
 
     const categories = [
         {
@@ -207,6 +206,12 @@ function Index() {
     ]
 
 
+
+
+
+
+
+
     return (
 
         <div className="">
@@ -217,7 +222,6 @@ function Index() {
             <p className="bg-yellow-100 rounded-lg border-2 border-gray-300 shadow-md p-2 m-1">
                 ChutLund covers all and every possible porn category that you can think of, even the kinkiest ones that might not be as popular as anal, teen, MILF, threesome and amateur. Regardless of your taste, you can easily find what suits your interest at any given time. Today, you might be all about blowjobs, tomorrow about BBW scenes and a week from now, you would like to experience interracial category - all this one ChutLund.
             </p>
-            https://spankbang.com/category/amateur/?o=hot
 
             <div className={`grid grid-cols-2 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
                 {categories.map(category => {
@@ -227,7 +231,7 @@ function Index() {
                                 <img
                                     className='rounded w-full object-cover aspect-box'
                                     alt='loading'
-                                    src={category.thumbnailImage}
+                                    src={`/categorypics/${category.Title}.png`}
 
                                 ></img>
                                 <p className='rounded-b absolute text-md sm:text-lg font-bold p-1 bottom-0 w-full text-center  z-10 text-white bg-transparent bg-black bg-opacity-50'>{category.Title}</p>
@@ -245,4 +249,5 @@ function Index() {
 
 
 export default Index
+
 
