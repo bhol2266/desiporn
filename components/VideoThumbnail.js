@@ -11,6 +11,7 @@ import { useContext, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 import Head from 'next/head'
 import Link from 'next/link';
+import HoverVideoPlayer from 'react-hover-video-player';
 
 
 
@@ -20,6 +21,8 @@ import Link from 'next/link';
 
 function VideoThumbnail({ details }) {
 
+    var canPlay = 0;
+
     const video = details;
 
     const key = details.hrefArray.substring(details.hrefArray.indexOf('video/') + 6, details.hrefArray.length)
@@ -27,6 +30,9 @@ function VideoThumbnail({ details }) {
 
 
     const [ImageSrc] = useState(video.thumbnail);
+
+    // state for making thumbnail hide and preview video play
+    const [onHover, setonHover] = useState(false);
 
     const [spinnerloader, setspinnerloader] = useState(false);
 
@@ -56,22 +62,17 @@ function VideoThumbnail({ details }) {
 
 
     const stopMovie = (e) => {
-        e.target.pause();
-        console.log('off');
+        e.target.load();
         setspinnerloader(false)
 
     }
 
     const playMovie = (e) => {
         e.target.play();
-        console.log('on');
-
         setspinnerloader(true)
-        setTimeout(() => {
-            setspinnerloader(false)
-        }, 1000);
-    }
 
+
+    }
 
 
 
@@ -87,50 +88,23 @@ function VideoThumbnail({ details }) {
                 <div className={` mb-2 animate-fade flex   flex-col justify-center  cursor-pointer  shadow-md  border-2 rounded-lg overflow-hidden	 md:hover:scale-105 transform transition duration-150 bg-white  `}>
 
 
-                    <div className='z--10'>
+
+                    <video
+                        className={`w-full aspect-video object-contain ${spinnerloader? "":""}`}
+                        onMouseOver={playMovie}
+                        onMouseLeave={stopMovie}
+                        src={video.previewVideoArray}
+                        poster={video.thumbnailArray}
+                        preload='none'
+                        muted="muted"
+                    />
 
 
-                        <div className={` mb-2 animate-fade flex   flex-col justify-center  cursor-pointer  shadow-md  border-2 rounded-lg overflow-hidden	 md:hover:scale-105 transform transition duration-150 bg-white  `}>
 
-                            <video
-                                className={`${spinnerloader ? "brightness-50":""}`}
-                                onMouseOver={playMovie}
-                                onMouseLeave={stopMovie}
-                                src={video.previewVideoArray}
-                                poster={video.thumbnailArray}
-                                preload='none'
-                                muted="muted" />
-                            <div className={`${spinnerloader ? "w-full h-full" : "invisible "} absolute top-0 flex items-center justify-center`}>
-                                <BeatLoader loading size={10} color={'red'} />
-                            </div>
-                        </div>
-
-                        {/* <HoverVideoPlayer
-
-                            videoSrc={[
-                                { src: video.previewVideoArray, type: 'video/mp4' },
-                            ]}
-                            pausedOverlay={
-                                <img
-                                    loading="lazy"
-                                    src={video.thumbnailArray}
-                                    alt='loading'
-                                />
-                            }
-                            loadingOverlay={
-                                <div className="loading-overlay">
-                                    <div className="loading-spinner" />
-                                </div>
-                            }
-                        /> */}
-
-                    </div>
+                    <p className=" font-semibold text-sm sm:text-md  pl-1 pt-1  whitespace-nowrap overflow-hidden  ">{video.TitleArray}</p>
 
 
-                    <p className=" font-semibold text-sm sm:text-lg  pl-1 pt-1  whitespace-nowrap overflow-hidden  ">{video.TitleArray}</p>
-
-
-                    <div className="flex justify-between scale-90 sm:scale-100 sm:justify-around lg:space-x-4 lg:justify-start
+                    <div className="flex justify-between  sm:scale-90 sm:justify-around lg:space-x-4 lg:justify-start
                         overflow-hidden">
 
                         <div className="flex justify-center items-center ">

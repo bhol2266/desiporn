@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import VideoThumbnail from '../components/VideoThumbnail';
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
-import videos from "../JsonData/indian/indian1.json"
+import videos from "../JsonData/indian/indian3.json"
 export default function Home({video_collection}) {
 
 
