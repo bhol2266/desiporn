@@ -134,7 +134,7 @@ export async function getServerSideProps(context) {
     }
     
 
-    await scrape(`https://spankbang.com/s/${searchkey.toLowerCase().trim()}/?q=uhd`)
+    await scrape(`https://spankbang.com/s/${searchkey.toLowerCase().trim()}/`)
 
   
 

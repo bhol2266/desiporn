@@ -3,29 +3,43 @@ import { useEffect, useState } from 'react';
 import cheerio from 'cheerio';
 import extractUrls from "extract-urls";
 import { useRouter } from "next/router";
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import Videos from '../../components/Videos'
 import fetchdata from 'node-fetch';
 import {
-    ThumbUpIcon, ClockIcon, FilmIcon, EyeIcon, PlusIcon, MinusIcon
+    ThumbUpIcon, ClockIcon, FilmIcon, EyeIcon, PlusIcon, MinusIcon, CogIcon
 } from '@heroicons/react/solid';
+import { useRef } from 'react';
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+// import fs from 'fs';
+
+
+function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality, relatedVideos, pornstar }) {
+
+    let uniquePornstars = pornstar.filter((element, index) => {
+        return pornstar.indexOf(element) === index;
+    });
 
 
 
 
-function Videoplayer({ videolink_qualities_screenshots }) {
-
-  
-
-    const [video_details, setvideo_details] = useState({});
+    const videoPlayerRef = useRef(null)
 
     useEffect(() => {
         setvideo_details(JSON.parse(localStorage.getItem('videoplayer')))
     }, [])
 
 
+    const [video_details, setvideo_details] = useState({});
     const [screenshotlayoutToggle, setscreenshotlayoutToggle] = useState('hidden')
     const [PlusVisible, setPlusVisible] = useState('flex')
     const [MinusVisible, setMinusVisible] = useState('hidden')
-
+    const [Quality, setQuality] = useState(preloaded_video_quality)
+    const [VideoSrc, setVideoSrc] = useState(videolink_qualities_screenshots.video_link)
 
 
     const openScreenShotLayout = () => {
@@ -41,8 +55,20 @@ function Videoplayer({ videolink_qualities_screenshots }) {
         }
     }
 
+    //Quality Changer Onclick
+    const menuItemOnClick = (quality) => {
+        if (quality != Quality) {
 
+            const currentTime = videoPlayerRef.current.currentTime;
+            setQuality(quality);
+            const index = videolink_qualities_screenshots.video_qualities_available.indexOf(quality)
+            videoPlayerRef.current.load()
+            videoPlayerRef.current.currentTime = currentTime
+            videoPlayerRef.current.play();
+            setVideoSrc(videolink_qualities_screenshots.video_qualities_available_withURL[index])
+        }
 
+    }
 
 
     return (
@@ -63,7 +89,7 @@ function Videoplayer({ videolink_qualities_screenshots }) {
 
                     <div className='flex items-center'>
                         <ClockIcon className='icon hover:scale-100' />
-                        <p className='text-xs font-bold'>{video_details.duration}</p>
+                        <p className='text-xs font-bold'>{Quality}</p>
                     </div>
                     <div className='flex items-center'>
                         <FilmIcon className='icon hover:scale-100' />
@@ -77,23 +103,10 @@ function Videoplayer({ videolink_qualities_screenshots }) {
 
                 </div>
 
-                {/* Tags */}
-                <div className='p-1 flex flex-wrap'>
-                    {
-                        videolink_qualities_screenshots.tagsArray.map(key => {
-                            if (key.length >= 1) {
-
-                                return (
-                                    <a key={key} href={`/search/${key.trim()}`}>
-                                        <p className='pl-1 pr-1 text-xs md:text-sm ml-1 mt-1 cursor-pointer hover:bg-gray-300 rounded bg-yellow-100 border-gray-400 border-2'>{key}</p>
-                                    </a>
-                                )
-                            }
-                        })
-                    }
-                </div>
 
 
+
+                <p className='text-md sm:text-lg font-bold p-1 px-2 text-wrap text-gray-700 md:text-2xl'>{video_details.Title}</p>
 
 
                 <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
@@ -101,28 +114,110 @@ function Videoplayer({ videolink_qualities_screenshots }) {
                     <div className=' hover:brightness-75 group  relative'>
 
 
-                        <video poster={video_details.thumbnail} className={`animate-fade `} width="1280" height="720" controls >
-                            <source src={videolink_qualities_screenshots.video_qualities_available_withURL[videolink_qualities_screenshots.video_qualities_available_withURL.length-1]} type="video/mp4" />
+                        <video ref={videoPlayerRef} poster={video_details.thumbnail} autoPlay className={`animate-fade `} width="1280" height="720" controls >
+                            <source src={VideoSrc} type="video/mp4" />
 
                         </video>
 
                     </div>
-                    <div className="flex justify-start space-x-10">
 
-                        <div className="flex justify-center items-center space-x-1 ">
+                    <div className="flex justify-between p-2  lg:pr-28 ">
+
+                        <div className="flex justify-around items-center space-x-2 ">
 
                             <div className='flex items-center'>
                                 <EyeIcon className="icon text-black-400" />
                                 <p className='text-xs font-bold'>{video_details.views.length > 1 ? video_details.views : "46513"}</p>
                             </div>
                             <div className='flex items-center'>
-                                <ThumbUpIcon className="icon text-red-400" />
+                                <ThumbUpIcon className="icon text-green-500" />
                                 <p className='text-xs font-bold'>{video_details.likedPercent}</p>
                             </div>
+
+
+
+                        </div>
+                        <div>
+                            <Menu as="div" className="relative  text-left">
+                                <div className=' w-fit'>
+                                    <Menu.Button className="flex items-center space-x-1">
+                                        <CogIcon className="icon text-gray-600" />
+                                        <p className='text-sm font-bold'>{Quality}</p>
+                                    </Menu.Button>
+                                </div>
+
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="z-50 origin-top-right absolute right-0 bottom-11 mt-2 w-fit rounded-md shadow-lg bg-transparent bg-white bg-opacity-75  ">
+                                        <div className=" border-2 border-gray-400 rounded">
+
+                                            {videolink_qualities_screenshots.video_qualities_available.map(quality => {
+                                                return (
+                                                    <Menu.Item key={quality} onClick={() => { menuItemOnClick(quality) }}>
+                                                        {({ active }) => (
+                                                            <a
+                                                                href="#"
+                                                                className={classNames(
+                                                                    active ? ' text-red-500' : 'text-black',
+                                                                    'block px-4 py-2 text-sm font-semibold hover:bg-gray-300'
+                                                                )}
+                                                            >
+                                                                {quality}
+                                                            </a>
+                                                        )}
+                                                    </Menu.Item>
+                                                )
+                                            })}
+                                        </div>
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
+
 
                         </div>
 
                     </div>
+
+                    {/* Tags */}
+                    <div className='p-1 flex flex-wrap'>
+                        {
+                            videolink_qualities_screenshots.tagsArray.map(key => {
+                                if (key.length >= 1) {
+
+                                    return (
+                                        <a key={key} href={`/search/${key.trim()}`}>
+                                            <p className='pl-1 pr-1 text-xs md:text-sm ml-1 mt-1 cursor-pointer hover:bg-gray-300 rounded bg-yellow-100 border-gray-400 border-2'>{key}</p>
+                                        </a>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+
+                    {uniquePornstars.length>=1 && <div className='flex items-center py-2'>
+                        <span className='font-semibold text-lg'>Pornstar:</span>
+                        {uniquePornstars.map(pornstars => {
+                            return (
+
+                                <a key={pornstars}>
+                                    <p className='pl-1 pr-1 text-xs md:text-sm ml-1 mt-1 cursor-pointer hover:bg-green-300 rounded bg-green-100 border-gray-400 border-2'>
+                                        {pornstars}
+                                    </p>
+                                </a>
+
+
+                            )
+                        })}
+                    </div>
+                    }
+
 
 
                     {/* ScreenShots  */}
@@ -160,17 +255,11 @@ function Videoplayer({ videolink_qualities_screenshots }) {
 
 
 
-                {/* <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
-                    <p className='font-bold text-red-500 text-xl'>Videos related to</p>
-                    <p className='font-bold pl-1'>{video_details.title}</p>
+                <div className='flex p-1 flex-col  items-center md:flex-row sm:justify-items-start'>
+                    <p className='font-bold text-red-500 text-lg'>Videos related to</p>
+                    <p className='font-bold text-lg pl-1'>{video_details.Title}</p>
                 </div>
-                {videolinkState &&
-                    <Videos data={relatedVideos} />
-                } */}
-
-
-
-
+                <Videos data={relatedVideos} />
             </div>
             }
 
@@ -201,6 +290,106 @@ export async function getServerSideProps(context) {
 
 
     var finalDataArray = {}
+    var preloaded_video_quality = ''
+    var relatedVideos = []
+    var pornstar = []
+
+
+
+    const scrape = async (body) => {
+
+        var thumbnailArray = []
+        var TitleArray = []
+        var durationArray = []
+        var likedPercentArray = []
+        var viewsArray = []
+        var previewVideoArray = []
+        var hrefArray = []
+
+        const $ = cheerio.load(body)
+
+
+
+        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+
+            const data = $(el).attr("data-src")
+            thumbnailArray.push(data)
+
+
+        })
+        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+
+            const data = $(el).attr("alt")
+            TitleArray.push(data)
+
+
+        })
+        $('.video-list.video-rotate .video-item .l').each((i, el) => {
+
+            const data = $(el).text()
+            durationArray.push(data)
+        })
+
+
+
+        $('.video-list.video-rotate .video-item .stats').each((i, el) => {
+
+            const views = $(el).children().eq(1).text()
+
+            const likedPercent = $(el).children().eq(2).text()
+            if (views.includes('%')) {
+                likedPercentArray.push(views)
+                viewsArray.push(likedPercent)
+
+            } else {
+                viewsArray.push(views)
+                likedPercentArray.push(likedPercent)
+            }
+        })
+
+
+        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+
+            const data = $(el).attr("data-preview")
+            previewVideoArray.push(data)
+        })
+
+
+
+        $('.video-list.video-rotate .video-item').each((i, el) => {
+
+            const data = $(el).children().eq(1).attr("href")
+            if (data) {
+                hrefArray.push(`https://spankbang.com${data}`)
+            }
+
+
+        })
+
+
+
+        for (let index = 0; index < thumbnailArray.length; index++) {
+
+            if (hrefArray[index] != undefined && previewVideoArray[index] != undefined && !thumbnailArray[index].includes("//assets.sb-cd.com")) {
+
+                relatedVideos.push({
+                    thumbnailArray: thumbnailArray[index],
+                    TitleArray: TitleArray[index],
+                    durationArray: durationArray[index],
+                    likedPercentArray: likedPercentArray[index],
+                    viewsArray: viewsArray[index],
+                    previewVideoArray: previewVideoArray[index],
+                    hrefArray: hrefArray[index],
+
+                })
+            }
+        }
+        console.log(relatedVideos.length);
+
+
+    }
+
+
 
     const scrape2 = async (url) => {
 
@@ -213,12 +402,16 @@ export async function getServerSideProps(context) {
 
         var tagsArray = []
         var categoriesArray = []
-        var pornstar = ''
 
 
         const response = await fetchdata(url)
         const body = await response.text();
         const $ = cheerio.load(body)
+
+
+
+
+        await scrape(body)
 
 
         $('video source').each((i, el) => {
@@ -232,7 +425,6 @@ export async function getServerSideProps(context) {
         const cut2 = cut1.substring(cut1.indexOf('var stream_data'), body.indexOf("mpd"));
         const video_qualities_url_array = extractUrls(cut2)
 
-        var preloaded_video_quality = ''
         if (video_link.includes("240p.mp4")) {
             preloaded_video_quality = "240p"
 
@@ -306,6 +498,13 @@ export async function getServerSideProps(context) {
             const data = $(el).text()
             tagsArray.push(data)
         })
+        $('.cat .ent a').each((i, el) => {
+            if ($(el).attr('href').includes('/pornstar/')) {
+                const data = $(el).text()
+                pornstar.push(data)
+            }
+
+        })
 
 
 
@@ -321,7 +520,6 @@ export async function getServerSideProps(context) {
             screenshotsArray: screenshotsArray,
             tagsArray: tagsArray,
         }
-        console.log(video_qualities_available_withURL);
 
     }
 
@@ -333,7 +531,10 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            videolink_qualities_screenshots: finalDataArray
+            videolink_qualities_screenshots: finalDataArray,
+            preloaded_video_quality: preloaded_video_quality,
+            relatedVideos: relatedVideos,
+            pornstar: pornstar
         }
     }
 
