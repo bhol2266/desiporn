@@ -83,7 +83,7 @@ function Navbar() {
         e.preventDefault();
 
         if (e.target[0].value) {
-            router.push(`/search/${e.target[0].value.trim()}`)
+            router.push(`/search/${e.target[0].value.trim()}**1`)
 
         }
 
