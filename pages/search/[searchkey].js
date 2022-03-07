@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import fetchdata from 'node-fetch';
 import Sidebar from "../../components/Sidebar";
 import Videos from "../../components/Videos";
-
+import Header from '../../components/searchPage/Header'
 
 
 function Category({ video_collection, pages }) {
@@ -15,8 +15,8 @@ function Category({ video_collection, pages }) {
 
   return (
     <>
+      <Header keyword={searchkey.substring(0,searchkey.indexOf("**"))} pageNumber={currentPageNumberURL} />
       <div className="flex">
-
         <Sidebar />
         <Videos data={video_collection} />
 
@@ -25,9 +25,9 @@ function Category({ video_collection, pages }) {
 
 
       {/* PAGINATION */}
-      <div className='flex flex-col justify-center items-center flex-wrap'>
+      <div className='flex justify-center items-center flex-wrap'>
         <a className={`${parseInt(currentPageNumberURL) === 1 ? "hidden" : ""}`} href={`/search/${searchkey.substring(0, searchkey.indexOf("**")).toLowerCase().trim()}**${parseInt(currentPageNumberURL) - 1}/`}>
-          <button className={`border-2 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
+          <button className={`text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
         </a>
         {pages.map((pagenumber, index) => {
 
@@ -35,11 +35,11 @@ function Category({ video_collection, pages }) {
 
             var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
             if (format.test(pagenumber)) {
-              return <p className='pt-2 pl-3 pr-3 ml-1 pb-2 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
+              return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
 
             } else {
               return (
-                <a href={`/search/${searchkey.substring(0, searchkey.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`pt-2 pl-3 pr-3 ml-1 pb-2 border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} key={pagenumber}>
+                <a href={`/search/${searchkey.substring(0, searchkey.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} key={pagenumber}>
                   <p>{pagenumber}</p>
                 </a>
               )
@@ -49,7 +49,7 @@ function Category({ video_collection, pages }) {
 
         })}
         <a className={`${parseInt(currentPageNumberURL) === parseInt(pages[pages.length - 2]) ? "hidden" : ""}`} href={`/search/${searchkey.substring(0, searchkey.indexOf("**")).toLowerCase().trim()}**${parseInt(currentPageNumberURL) + 1}/`}>
-          <button className={` border-2  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
+          <button className={`text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
         </a>
       </div>
     </>

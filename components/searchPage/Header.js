@@ -12,7 +12,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Header({ keyword }) {
+export default function Header({ keyword, pageNumber }) {
 
 
 
@@ -20,24 +20,25 @@ export default function Header({ keyword }) {
     const context = useContext(videosContext);
     const { setvideos, setSpinner } = context;
 
-   async function menuItemOnClick(key) {
-       setSpinner(true)
+    async function menuItemOnClick(key) {
+        setSpinner(true)
 
         const response = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${keyword}&per_page=1000&thumbsize=big&order=${key}&lq=1&format=json`).catch(error => {
             alert(error)
         });
-       if (response) {
-           const json = await response.json();
-           setvideos(json)
-           setSpinner(false)
+        if (response) {
+            const json = await response.json();
+            setvideos(json)
+            setSpinner(false)
 
-       }
+        }
 
     }
     return (
         <div className='flex items-center p-2 '>
             <ArrowRightIcon className='icon text-gray-400' />
             <p className='text-xl pl-1 pr-1 flex-grow'>{keyword + " Porn Videos"}</p>
+            <p className='text-xl pl-1 pr-1 flex-grow'>{`Page-${pageNumber}`}</p>
             <Menu as="div" className="relative  text-left">
                 <div className=' w-fit'>
                     <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
