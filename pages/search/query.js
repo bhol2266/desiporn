@@ -5,7 +5,10 @@ import Sidebar from "../../components/Sidebar";
 import Videos from "../../components/Videos";
 import Header from '../../components/searchPage/Header'
 import Link from 'next/link'
-
+import { BeatLoader } from 'react-spinners'
+import { useContext, useState } from 'react';
+import videosContext from '../../context/videos/videosContext';
+import Router from 'next/router'
 
 function Category({ video_collection, pages, query, keyword, currentPage, filteredObjsArray }) {
 
@@ -14,77 +17,85 @@ function Category({ video_collection, pages, query, keyword, currentPage, filter
   const router = useRouter();
   const currentPageNumberURL = currentPage
 
+  const context = useContext(videosContext);
+  const { spinnerLoading, setSpinner, } = context;
+
+
+  const clickHandler = (pageNumber) => {
+    setSpinner(true)
+
+
+    var queryObj = {
+      searchkey: keyword,
+      page: pageNumber
+    }
+    if (filteredObjsArray) {
+      for (let index = 0; index < filteredObjsArray.length; index++) {
+
+        queryObj[filteredObjsArray[index].substring(0, filteredObjsArray[index].indexOf('='))] = filteredObjsArray[index].substring(filteredObjsArray[index].indexOf('=') + 1, filteredObjsArray[index].length)
+      }
+    }
+    Router.push({
+      pathname: `/search/query/`,
+      query: queryObj
+    })
+  }
 
 
   return (
+
     <>
-      <Header keyword={keyword} pageNumber={currentPageNumberURL} filteredObjsArrayProps={filteredObjsArray} />
-      <div className="flex">
-        <Sidebar />
-        <Videos data={video_collection} />
+      {spinnerLoading &&
+        <div className="flex justify-center mx-auto mt-10 ">
+          <BeatLoader loading size={25} color={'red'} />
+        </div>
+      }
 
-      </div>
+      {!spinnerLoading &&
+        <div>
 
+          <Header keyword={keyword} pageNumber={currentPageNumberURL} filteredObjsArrayProps={filteredObjsArray} />
+          <div className="flex">
+            <Sidebar />
+            <Videos data={video_collection} />
 
-
-      {/* PAGINATION */}
-      <div className='flex justify-center items-center flex-wrap'>
-        <Link className={`${parseInt(currentPageNumberURL) === 1 ? "hidden" : ""}`} href={{
-          pathname: `/search/query/`, query: {
-            o: query,
-            searchkey: keyword,
-            page: parseInt(currentPageNumberURL) - 1
-          }
-        }}>
-
-          <a >
-            <button className={`text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
-          </a>
-        </Link>
-        {pages.map((pagenumber, index) => {
-
-          if (index != 0 && index != pages.length - 1) {
-
-            var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-            if (format.test(pagenumber)) {
-              return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
-
-            } else {
-              return (
-
-                <Link key={pagenumber} href={{
-                  pathname: `/search/query/`, query: {
-                    o: query,
-                    searchkey: keyword,
-                    page: pagenumber
-                  }
-                }}>
-                  <a className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} >
-                    <p>{pagenumber}</p>
-                  </a>
-                </Link>
+          </div>
 
 
-              )
-            }
-          }
+          {/* PAGINATION */}
+          <div className='flex justify-center items-center flex-wrap'>
+
+            <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) - 1) }} className={`${parseInt(currentPageNumberURL) === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
+
+            {pages.map((pagenumber, index) => {
+
+              if (index != 0 && index != pages.length - 1) {
+
+                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                if (format.test(pagenumber)) {
+                  return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
+
+                } else {
+                  return (
+                    <p key={pagenumber} onClick={() => { clickHandler(pagenumber) }} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} >
+                      {pagenumber}
+                    </p>
+
+                  )
+                }
+              }
 
 
-        })}
+            })}
 
-        <Link className={`${parseInt(currentPageNumberURL) === parseInt(pages[pages.length - 2]) ? "hidden" : ""}`} href={{
-          pathname: `/search/query/`, query: {
-            o: query,
-            searchkey: keyword,
-            page: parseInt(currentPageNumberURL) + 1
-          }
-        }}>
-          <a >
-            <button className={`text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
-          </a>
-        </Link>
 
-      </div>
+            <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) + 1) }} className={`${parseInt(currentPageNumberURL) === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
+
+          </div>
+        </div>
+      }
+
+
     </>
   )
 }
@@ -116,6 +127,13 @@ export async function getServerSideProps(context) {
   }
   if (p) {
     filteredObjsArray.push(`p=${p}`)
+  }
+
+  if (page > 1) {
+    for (let index = 0; index < filteredObjsArray.length; index++) {
+      filteredObjsArray[index].replace('o=', '');
+
+    }
   }
 
   if (filteredObjsArray.length === 1) {
@@ -245,6 +263,8 @@ export async function getServerSideProps(context) {
   }
   else {
     await scrape(`https://spankbang.com/s/${searchkey}/${page}/`)
+    console.log(`https://spankbang.com/s/${searchkey}/${page}/`);
+
 
   }
 

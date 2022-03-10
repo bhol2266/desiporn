@@ -76,6 +76,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
             <Head>
                 <title>{video_details.Title}</title>
+                
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
             </Head>

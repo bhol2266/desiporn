@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon, ArrowRightIcon, CogIcon, ClockIcon, XCircleIcon, CalendarIcon } from '@heroicons/react/solid'
+import { SearchIcon, ArrowRightIcon, CogIcon, ClockIcon, XCircleIcon, CalendarIcon } from '@heroicons/react/solid'
 import { FilterIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
@@ -15,10 +15,13 @@ function classNames(...classes) {
 }
 
 export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) {
+
+    const context = useContext(videosContext);
+    const { setSpinner, } = context;
+
+
     // This object is to display whats stuffs are filtered 
     const Final_filteredArray = []
-
-    console.log(`filteredObjsArrayProps: ${filteredObjsArrayProps}`);
 
 
     var filter_isPresent = ''
@@ -116,6 +119,9 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
     ]
 
     const clickHandler = (query) => {
+        setSpinner(true)
+
+
         var queryObj = {
             searchkey: keyword,
             page: 1
@@ -127,9 +133,10 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
             }
         }
 
-        queryObj[query.substring(0, query.indexOf('='))] = query.substring(query.indexOf('=') + 1, query.length)
+        if (query) {
+            queryObj[query.substring(0, query.indexOf('='))] = query.substring(query.indexOf('=') + 1, query.length)
+        }
 
-        console.log(queryObj);
 
 
         Router.push({
@@ -140,107 +147,102 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
     const removefilter = (item) => {
 
+        if (item === 'Relevant' || item === 'Trending' || item === 'New' || item === 'Popular') {
+            for (let index = 0; index < filteredObjsArrayProps.length; index++) {
+                if (filteredObjsArrayProps[index].includes("o=")) {
+                    filteredObjsArrayProps.splice(index, 1);
+                    clickHandler()
+                }
+
+            }
+        }
+        if (item === 'Today' || item === 'This Week' || item === 'This Month' || item === 'This Year') {
+            for (let index = 0; index < filteredObjsArrayProps.length; index++) {
+                if (filteredObjsArrayProps[index].includes("p=")) {
+                    filteredObjsArrayProps.splice(index, 1);
+                    clickHandler()
+
+                }
+
+            }
+        }
+        if (item === '10+min' || item === '20+min' || item === '40+min') {
+            for (let index = 0; index < filteredObjsArrayProps.length; index++) {
+                if (filteredObjsArrayProps[index].includes("d=")) {
+                    filteredObjsArrayProps.splice(index, 1);
+                    clickHandler()
+
+                }
+
+            }
+        }
+        if (item === '720p' || item === '1080p' || item === '4K') {
+            for (let index = 0; index < filteredObjsArrayProps.length; index++) {
+                if (filteredObjsArrayProps[index].includes("q=")) {
+                    filteredObjsArrayProps.splice(index, 1);
+                    clickHandler()
+
+                }
+
+            }
+        }
+
+
     }
 
 
 
-    //Use Context
-    const context = useContext(videosContext);
-    const { setvideos, setSpinner } = context;
-
 
     return (
-        <div className=' items-center p-2 '>
-            <div className='flex items-start'>
-                <ArrowRightIcon className='icon text-gray-400' />
-                <p className='text-xl pl-1 pr-1 flex-grow'>{keyword + " Porn Videos"}</p>
-                <p className='text-xl pl-1 pr-1 '>{`Page-${pageNumber}`}</p>
+
+        <div className=' items-center  '>
+            <div className='flex items-start md:pr-10 pt-2  sm:p-1 px-2 md:px-3'>
+                <SearchIcon className='icon text-red-500' />
+                <p className='text-xl md:2xl pl-1 pr-1 flex-grow'>{keyword.toUpperCase() + " Porn Videos"}</p>
+                <p className='text-xl  pl-1 pr-1 font-bold '>{`PAGE-${pageNumber}`}</p>
             </div>
-            {/* This filtered applied bar */}
-            <div className='flex items-start justify-around space-x-2 w-fit p-1'>
-                {Final_filteredArray.map(item => {
-                    return (
-                        <div key={item} onClick={() => { removefilter(item) }} className='border-2 pl-1  text-sm font-semibold cursor-pointer border-red-500 px-0.5 rounded flex items-center'>
-                            <p >{item}</p>
-                            <XCircleIcon className='icon text-red-500' />
+
+
+            <div className='w-fit   md:flex sm:p-1 px-2   '>
+
+                {/* This filtered applied bar */}
+                <div className='flex items-start  space-x-2 pr-2 mb-2 md:mb-0   '>
+                    {Final_filteredArray.map(item => {
+                        return (
+                            <div key={item} onClick={() => { removefilter(item) }} className='border-2 pl-1  text-sm font-semibold hover:bg-red-200 cursor-pointer border-red-500 px-0.5 rounded flex items-center'>
+                                <p >{item}</p>
+                                <XCircleIcon className='icon text-red-500' />
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className='flex items-start  cursor-pointer  space-x-2'>
+
+                    <Menu as="div" className={` relative  text-left`}>
+                        <div className=' w-fit'>
+                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                                Filter
+                                <FilterIcon className="-mr-1 ml-2 h-5 w-5 " aria-hidden="true" />
+                            </Menu.Button>
+                            <p className='text-gray-700 block px-4 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                            >
+                            </p>
                         </div>
-                    )
-                })}
-            </div>
 
-            <div className='flex items-start justify-around cursor-pointer'>
-
-                <Menu as="div" className={` relative  text-left`}>
-                    <div className=' w-fit'>
-                        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
-                            Filter
-                            <FilterIcon className="-mr-1 ml-2 h-5 w-5 " aria-hidden="true" />
-                        </Menu.Button>
-                        <p className='text-gray-700 block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
                         >
-                        </p>
-                    </div>
+                            <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-
-                            {filter.map(item => {
-                                return (
-                                    <Menu.Item key={item.name}  >
-                                        {({ active }) => (
-                                            <p onClick={() => { clickHandler(item.query) }} className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
-                                            )}
-                                            >
-                                                {item.name}
-                                            </p>
-                                        )}
-                                    </Menu.Item>
-
-
-
-                                )
-                            })}
-
-
-
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
-
-
-                <Menu as="div" className="relative  text-left">
-                    <div className=' w-fit'>
-                        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
-                            Quality
-                            <CogIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-                        </Menu.Button>
-                    </div>
-
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
-
-                                {qualtiy.map(item => {
+                                {filter.map(item => {
                                     return (
-                                        <Menu.Item key={item.name} >
+                                        <Menu.Item key={item.name}  >
                                             {({ active }) => (
                                                 <p onClick={() => { clickHandler(item.query) }} className={classNames(
                                                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -251,105 +253,155 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                                                 </p>
                                             )}
                                         </Menu.Item>
+
+
+
                                     )
                                 })}
 
 
 
-                            </div>
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
 
 
-                <Menu as="div" className="relative  text-left">
-                    <div className=' w-fit'>
-                        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
-                            Duration
-                            <ClockIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-                        </Menu.Button>
-                    </div>
+                    <Menu as="div" className="relative  text-left">
+                        <div className=' w-fit'>
+                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                                Quality
+                                <CogIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                            </Menu.Button>
+                        </div>
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="py-1">
 
-                                {duration.map(item => {
-                                    return (
-                                        <Menu.Item key={item.name} >
-                                            {({ active }) => (
-                                                <p onClick={() => { clickHandler(item.query) }} className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                    {qualtiy.map(item => {
+                                        return (
+                                            <Menu.Item key={item.name} >
+                                                {({ active }) => (
+                                                    <p onClick={() => { clickHandler(item.query) }} className={classNames(
+                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                    )}
+                                                    >
+                                                        {item.name}
+                                                    </p>
                                                 )}
-                                                >
-                                                    {item.name}
-                                                </p>
-                                            )}
-                                        </Menu.Item>
-                                    )
-                                })}
+                                            </Menu.Item>
+                                        )
+                                    })}
 
 
 
-                            </div>
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
 
 
-                <Menu as="div" className="relative  text-left">
-                    <div className=' w-fit'>
-                        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
-                            Date
-                            <CalendarIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-                        </Menu.Button>
-                    </div>
+                    <Menu as="div" className="relative  text-left">
+                        <div className=' w-fit'>
+                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                                Duration
+                                <ClockIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                            </Menu.Button>
+                        </div>
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="py-1">
 
-                                {date.map(item => {
-                                    return (
-                                        <Menu.Item key={item.name} >
-                                            {({ active }) => (
-                                                <p onClick={() => { clickHandler(item.query) }} className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                    {duration.map(item => {
+                                        return (
+                                            <Menu.Item key={item.name} >
+                                                {({ active }) => (
+                                                    <p onClick={() => { clickHandler(item.query) }} className={classNames(
+                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                    )}
+                                                    >
+                                                        {item.name}
+                                                    </p>
                                                 )}
-                                                >
-                                                    {item.name}
-                                                </p>
-                                            )}
-                                        </Menu.Item>
-                                    )
-                                })}
+                                            </Menu.Item>
+                                        )
+                                    })}
 
 
 
-                            </div>
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+
+
+                    <Menu as="div" className="relative  text-left">
+                        <div className=' w-fit'>
+                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                                Date
+                                <CalendarIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                            </Menu.Button>
+                        </div>
+
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="py-1">
+
+                                    {date.map(item => {
+                                        return (
+                                            <Menu.Item key={item.name} >
+                                                {({ active }) => (
+                                                    <p onClick={() => { clickHandler(item.query) }} className={classNames(
+                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                    )}
+                                                    >
+                                                        {item.name}
+                                                    </p>
+                                                )}
+                                            </Menu.Item>
+                                        )
+                                    })}
+
+
+
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                </div>
+
             </div>
         </div>
+
+
     )
 }
 
