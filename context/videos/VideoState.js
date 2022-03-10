@@ -12,6 +12,7 @@ const VideoState = (props) => {
     const router = useRouter();
     const [spinnerLoading, setspinnerLoading] = useState(false)
     const [DarkTheme, setDarkTheme] = useState('')
+    const [currentLocation, setcurrentLocation] = useState(null)
 
 
 
@@ -35,7 +36,7 @@ const VideoState = (props) => {
 
 
     return (
-        <videosContext.Provider value={{ spinnerLoading, setSpinner, setDarkThemeFunc, DarkTheme }}>
+        <videosContext.Provider value={{ spinnerLoading, setSpinner, setDarkThemeFunc, DarkTheme, currentLocation, setcurrentLocation, }}>
             {props.children}
         </videosContext.Provider>
     )

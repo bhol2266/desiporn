@@ -31,6 +31,8 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
     useEffect(() => {
         setvideo_details(JSON.parse(localStorage.getItem('videoplayer')))
+
+        console.log(JSON.parse(localStorage.getItem('videoplayer')));
     }, [])
 
 
@@ -90,7 +92,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
                     <div className='flex items-center'>
                         <ClockIcon className='icon hover:scale-100' />
-                        <p className='text-xs font-bold'>{Quality}</p>
+                        <p className='text-xs font-bold'>{video_details.duration}</p>
                     </div>
                     <div className='flex items-center'>
                         <FilmIcon className='icon hover:scale-100' />
@@ -110,7 +112,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                 <p className='text-md sm:text-lg font-bold p-1 px-2 text-wrap text-gray-700 md:text-2xl'>{video_details.Title}</p>
 
 
-                <div className='p-1 border-2 border-gray-200 rounded overflow-hidden cursor-pointer md:w-4/5'>
+                <div className='p-1 border-2 border-gray-200 rounded overflow-hidden sm:cursor-pointer md:w-4/5'>
 
                     <div className=' hover:brightness-75 group  relative'>
 

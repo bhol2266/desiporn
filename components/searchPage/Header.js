@@ -216,11 +216,11 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                         )
                     })}
                 </div>
-                <div className='flex items-start  cursor-pointer  space-x-2'>
+                <div className='flex items-start    space-x-1 sm:space-x-2'>
 
                     <Menu as="div" className={` relative  text-left`}>
                         <div className=' w-fit'>
-                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                            <Menu.Button className="inline-flex justify-center cursor-pointer  w-full rounded-md border border-gray-300 shadow-sm px-2 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
                                 Filter
                                 <FilterIcon className="-mr-1 ml-2 h-5 w-5 " aria-hidden="true" />
                             </Menu.Button>
@@ -268,7 +268,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
                     <Menu as="div" className="relative  text-left">
                         <div className=' w-fit'>
-                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                            <Menu.Button className="inline-flex justify-center cursor-pointer  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
                                 Quality
                                 <CogIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                             </Menu.Button>
@@ -312,7 +312,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
                     <Menu as="div" className="relative  text-left">
                         <div className=' w-fit'>
-                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                            <Menu.Button className="inline-flex justify-center cursor-pointer  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
                                 Duration
                                 <ClockIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                             </Menu.Button>
@@ -356,7 +356,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
                     <Menu as="div" className="relative  text-left">
                         <div className=' w-fit'>
-                            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
+                            <Menu.Button className="inline-flex justify-center cursor-pointer  w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 ">
                                 Date
                                 <CalendarIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                             </Menu.Button>

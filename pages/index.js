@@ -1,14 +1,45 @@
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import cheerio from 'cheerio';
 import fetchdata from 'node-fetch';
-import { useContext, } from 'react';
-import { useRouter } from 'next/router';
-import VideoThumbnail from '../components/VideoThumbnail';
+
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
 import videos from "../JsonData/indian/indian3.json"
-export default function Home({video_collection}) {
+import videosContext from '../context/videos/videosContext'
+
+export default function Home() {
+
+  const { setcurrentLocation } = useContext(videosContext);
+
+  useEffect(() => {
+    async function fetchData() {
+      var location = {}
+      if (!localStorage.getItem("location") === null) {
+        setcurrentLocation(location)
+      }
+      else {
+        try {
+          const response = await fetch('https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0')
+          location = await response.json()
+
+        } catch (error) {
+          try {
+            const response = await fetch('https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0')
+            location = await response.json()
+            console.log(location);
+
+          } catch (error) {
+            location = { country_name: 'india' }
+          }
+        }
+        setcurrentLocation(location)
+        localStorage.setItem("location", JSON.stringify(location))
+      }
+    }
+
+    fetchData()
+  }, []);
 
 
   return (
@@ -113,7 +144,7 @@ export async function getStaticProps() {
   // await scrape(`https://justindianporn.me/`)
 
 
-console.log(dataArray);
+  console.log(dataArray);
   return {
     props: {
       video_collection: dataArray,
