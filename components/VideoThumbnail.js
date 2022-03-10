@@ -1,17 +1,12 @@
 import {
     ClockIcon,
-    ThumbUpIcon,
-    ThumbDownIcon,
+    ThumbUpIcon
 } from '@heroicons/react/outline';
 import {
-    EyeIcon, StarIcon
+    EyeIcon
 } from '@heroicons/react/solid';
-import Image from 'next/image';
-import { useContext, useState } from 'react';
-import { BeatLoader } from 'react-spinners';
-import Head from 'next/head'
-import Link from 'next/link';
-import HoverVideoPlayer from 'react-hover-video-player';
+import Head from 'next/head';
+import { useState } from 'react';
 
 
 
@@ -31,8 +26,6 @@ function VideoThumbnail({ details }) {
 
     const [ImageSrc] = useState(video.thumbnail);
 
-    // state for making thumbnail hide and preview video play
-    const [onHover, setonHover] = useState(false);
 
     const [spinnerloader, setspinnerloader] = useState(false);
 
@@ -72,7 +65,7 @@ function VideoThumbnail({ details }) {
     var title =key_title.substring(key_title.indexOf('video/')+6,key_title.length)
 
     return (
-        <div className="hover:z-50 ">
+        <div className="">
             <Head>
                 <title>{video.TitleArray}</title>
             </Head>
