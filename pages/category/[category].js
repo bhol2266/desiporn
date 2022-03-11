@@ -35,11 +35,11 @@ function Category({ video_collection, pages }) {
 
             var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
             if (format.test(pagenumber)) {
-              return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
+              return <p key={pagenumber} className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
 
             } else {
               return (
-                <a href={`/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} key={pagenumber}>
+                <a key={pagenumber} href={`/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} key={pagenumber}>
                   <p>{pagenumber}</p>
                 </a>
               )
