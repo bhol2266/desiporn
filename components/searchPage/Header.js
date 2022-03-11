@@ -19,6 +19,13 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
     const context = useContext(videosContext);
     const { setSpinner, } = context;
 
+    const [currentPage, setcurrentPage] = useState('')
+
+    useEffect(() => {
+        setcurrentPage(window.location.href.includes('/search/') ? "searchPage" : "categoryPage")
+    }, [])
+    
+
 
     // This object is to display whats stuffs are filtered 
     const Final_filteredArray = []
@@ -120,11 +127,18 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
     const clickHandler = (query) => {
         setSpinner(true)
-
-
-        var queryObj = {
-            searchkey: keyword,
-            page: 1
+        var queryObj = {}
+        //if this headed component is of search page or category page
+        if (currentPage === 'searchPage') {
+            var queryObj = {
+                searchkey: keyword,
+                page: 1
+            }
+        } else {
+            var queryObj = {
+                category: keyword,
+                page: 1
+            }
         }
         if (filteredObjsArrayProps) {
             for (let index = 0; index < filteredObjsArrayProps.length; index++) {
@@ -138,11 +152,19 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
         }
 
 
+        if (currentPage === 'searchPage') {
+            Router.push({
+                pathname: `/search/query/`,
+                query: queryObj
+            })
+        } else {
+            Router.push({
+                pathname: `/category/query/`,
+                query: queryObj
+            })
+        }
 
-        Router.push({
-            pathname: `/search/query/`,
-            query: queryObj
-        })
+
     }
 
     const removefilter = (item) => {
@@ -198,8 +220,12 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
         <div className=' items-center  '>
             <div className='flex items-start md:pr-10 pt-2  sm:p-1 px-2 md:px-3'>
                 <SearchIcon className='icon text-red-500' />
-                <p className='text-xl md:2xl pl-1 pr-1 flex-grow'>{keyword.toUpperCase() + " Porn Videos"}</p>
-                <p className='text-xl  pl-1 pr-1 font-bold '>{`PAGE-${pageNumber}`}</p>
+                <div className='flex  '>
+                    <p className='text-xl md:2xl pl-1 pr-1 flex-grow'>{currentPage === 'searchPage' ? "Search:" : "Category:"}</p>
+                    <p className='text-xl md:2xl pl-1 pr-1 font-semibold  '>{keyword.toUpperCase()}</p>
+
+                </div>
+                <p className='text-xl  pl-1 pr-1 font-bold flex-grow  text-right '>{`PAGE-${pageNumber}`}</p>
             </div>
 
 
@@ -246,7 +272,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                                             {({ active }) => (
                                                 <p onClick={() => { clickHandler(item.query) }} className={classNames(
                                                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                    'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500 cursor-pointer'
                                                 )}
                                                 >
                                                     {item.name}
@@ -292,7 +318,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                                                 {({ active }) => (
                                                     <p onClick={() => { clickHandler(item.query) }} className={classNames(
                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500 cursor-pointer'
                                                     )}
                                                     >
                                                         {item.name}
@@ -336,7 +362,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                                                 {({ active }) => (
                                                     <p onClick={() => { clickHandler(item.query) }} className={classNames(
                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500 cursor-pointer'
                                                     )}
                                                     >
                                                         {item.name}
@@ -380,7 +406,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                                                 {({ active }) => (
                                                     <p onClick={() => { clickHandler(item.query) }} className={classNames(
                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500'
+                                                        'block px-4 py-2 text-sm font-semibold hover:bg-green-200 hover:text-red-500 cursor-pointer'
                                                     )}
                                                     >
                                                         {item.name}

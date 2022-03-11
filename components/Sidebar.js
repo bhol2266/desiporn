@@ -201,7 +201,7 @@ function Sidebar() {
         <div className='pt-1 hidden md:flex md:flex-col' >
             {categories.map(category => {
                 return (
-                    <a key={category.Title} href={`/category/${category.Title}`}>
+                    <a key={category.Title} href={`/category/${category.Title}**1`}>
                         <p className="w-44 text-md border-2 border-white hover:bg-red-600 rounded-md text-white  p-1 pl-4 pr-2 cursor-pointer bg-black opacity-75">{category.Title}</p>
                     </a>
                 )

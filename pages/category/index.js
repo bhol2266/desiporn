@@ -226,7 +226,7 @@ function Index() {
             <div className={`grid grid-cols-2 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
                 {categories.map(category => {
                     return (
-                        <a key={category.Title} href={`/category/${category.Title}`}>
+                        <a key={category.Title} href={`/category/${category.Title.toLowerCase().trim()}**1`}>
                             <div className='  relative m-1 sm:m-2  hover:scale-105 transform transition duration-150  ' >
                                 <img
                                     className='rounded w-full object-cover aspect-box'

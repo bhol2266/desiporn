@@ -1,16 +1,27 @@
 import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
-import cheerio from 'cheerio';
-import fetchdata from 'node-fetch';
+
+
 
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
-import videos from "../JsonData/indian/indian3.json"
+import React from 'react'
+
 import videosContext from '../context/videos/videosContext'
 
 export default function Home() {
 
   const { setcurrentLocation } = useContext(videosContext);
+
+  const [currentPageNumberURL, setcurrentPageNumberURL] = useState(1)
+  var pages = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+    12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+    23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+    34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
+    45, 46, 47, 48, 49, 50
+  ]
+  const videos = require(`../JsonData/indian/indian${currentPageNumberURL.toString()}.json`)
 
   useEffect(() => {
     async function fetchData() {
@@ -53,8 +64,31 @@ export default function Home() {
 
       <main className="flex ">
         <Sidebar />
+        <div>
+          <p className="bg-yellow-100 rounded-lg border-2 border-gray-300 shadow-md p-2 m-1">
+            Welcome to Chutlunds - the most comprehensive source of HD porn videos that you can currently find on the internet. Regardless of the XXX content that you prefer, you will surely find it all and loads more on Chutlund, the world&apos; s best porn tube site.
+          </p>
+          <Videos data={videos} />
+          {/* PAGINATION */}
+          <div className='flex justify-center items-center flex-wrap'>
 
-        <Videos data={videos} />
+            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL + 1) }} className={`${currentPageNumberURL === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
+
+            {pages.map((pagenumber, index) => {
+
+              return (
+                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber) }} className={`${pagenumber===currentPageNumberURL ? "bg-yellow-500":""}px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
+                  {pagenumber}
+                </p>
+
+              )
+            })}
+
+
+            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL - 1) }} className={`${currentPageNumberURL === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
+
+          </div>
+        </div>
       </main>
 
       <footer >
@@ -65,89 +99,3 @@ export default function Home() {
 }
 
 
-export async function getStaticProps() {
-  var dataArray = []
-
-  const scrape = async (url) => {
-
-    var TitleArray = []
-    var liked = []
-    var disliked = []
-    var durationArray = []
-    var hrefArray = []
-    var thumbnail = []
-
-
-
-    const response = await fetchdata(url)
-    const body = await response.text();
-    const $ = cheerio.load(body)
-
-
-
-    $('.info a').each((i, el) => {
-      const data = $(el).text().trim();
-      TitleArray.push(data)
-
-
-    })
-    $('.info a').each((i, el) => {
-
-      const data = $(el).attr('href')
-      hrefArray.push(`https://justindianporn.me${data}`)
-
-    })
-
-
-    $('.image a img').each((i, el) => {
-
-      const data = $(el).attr('data-src')
-      thumbnail.push(data)
-
-
-    })
-
-    $('.length').each((i, el) => {
-
-      const data = $(el).text().trim();
-      durationArray.push(data)
-
-    })
-    $('.likes.good').each((i, el) => {
-
-      const data = $(el).text().trim();
-      liked.push(data)
-
-    })
-    $('.dislikes.bad').each((i, el) => {
-
-      const data = $(el).text().trim();
-      disliked.push(data)
-
-    })
-
-    for (let Page = 0; Page < TitleArray.length; Page++) {
-      dataArray.push({
-        TitleArray: TitleArray[Page],
-        liked: liked[Page],
-        disliked: disliked[Page],
-        durationArray: durationArray[Page],
-        hrefArray: hrefArray[Page],
-        thumbnail: thumbnail[Page],
-      })
-    }
-
-
-  }
-
-  //Data is loaded and saved to local JSON file
-  // await scrape(`https://justindianporn.me/`)
-
-
-  console.log(dataArray);
-  return {
-    props: {
-      video_collection: dataArray,
-    }
-  }
-}

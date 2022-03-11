@@ -76,7 +76,7 @@ function VideoThumbnail({ details }) {
 
 
                     <video
-                        className={`w-full aspect-video object-contain ${spinnerloader? "":""}`}
+                        className={`w-full aspect-video object-contain ${spinnerloader? "":""} lazy`}
                         onMouseOver={playMovie}
                         onMouseLeave={stopMovie}
                         src={video.previewVideoArray}
