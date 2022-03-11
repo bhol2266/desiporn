@@ -15,7 +15,7 @@ function Category({ video_collection, pages }) {
 
   return (
     <>
-      <Header keyword={category.substring(0,category.indexOf("**"))} pageNumber={currentPageNumberURL} />
+      <Header keyword={category.substring(0, category.indexOf("**"))} pageNumber={currentPageNumberURL} />
       <div className="flex">
         <Sidebar />
         <Videos data={video_collection} />
@@ -39,7 +39,7 @@ function Category({ video_collection, pages }) {
 
             } else {
               return (
-                <a key={pagenumber} href={`/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} key={pagenumber}>
+                <a key={pagenumber} href={`/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}**${pagenumber}/`} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} >
                   <p>{pagenumber}</p>
                 </a>
               )
