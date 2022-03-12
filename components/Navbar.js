@@ -210,6 +210,18 @@ function Navbar() {
 
 
             </div>
+            <div className='flex w-full items-start justify-around mb-1 bg-green-100 shadow-lg md:hidden '>
+                <a href='/'>
+                    <p className='font-bold sm:text-2xl text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Home</p>
+                </a>
+                <a href='/category'>
+                    <p className='font-bold sm:text-2xl text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Catergories</p>
+                </a>
+                <a href='/pics/1'>
+                    <p className='font-bold sm:text-2xl text-green-900  text-center p-1 pr-6 hover:text-red-600 '>Leaked Pictures</p>
+                </a>
+
+            </div>
 
             {/* Large Sreeen NavBar  */}
 

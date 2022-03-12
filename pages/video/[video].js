@@ -30,8 +30,6 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
     useEffect(() => {
         setvideo_details(JSON.parse(localStorage.getItem('videoplayer')))
-
-        console.log(JSON.parse(localStorage.getItem('videoplayer')));
     }, [])
 
 
@@ -71,13 +69,29 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
     }
 
+    const seekTimeOnclick = (obj) => {
+        const time = obj.seekTime;
+
+        const extractMinute = parseInt(time.substring(0, time.indexOf(":")))
+        const extractSeconds = parseInt(time.substring(time.indexOf(":") + 1, time.length))
+
+        console.log(`extractMinute:${extractMinute}`);
+        console.log(`extractSeconds:${extractSeconds}`);
+
+        //videotime will is set in seconds by default
+        videoPlayerRef.current.currentTime = (extractMinute * 60) + extractSeconds
+        videoPlayerRef.current.play();
+        console.log((extractMinute * 60) + extractSeconds);
+
+    }
+
 
     return (
         <>
 
             <Head>
                 <title>{video_details.Title}</title>
-                
+
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
             </Head>
@@ -116,7 +130,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                     <div className=' hover:brightness-75 group  relative'>
 
 
-                        <video ref={videoPlayerRef} poster={video_details.thumbnail} autoPlay className={`animate-fade `} width="1280" height="720" controls >
+                        <video ref={videoPlayerRef} poster={video_details.thumbnail} autoPlay className={`w-full aspect-video object-contain`} width="1280" height="720" controls >
                             <source src={VideoSrc} type="video/mp4" />
 
                         </video>
@@ -188,7 +202,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                     </div>
 
                     {/* Tags */}
-                    <div className='p-1 flex flex-wrap'>
+                    {/* <div className='p-1 flex flex-wrap'>
                         {
                             videolink_qualities_screenshots.tagsArray.map(key => {
                                 if (key.length >= 1) {
@@ -201,9 +215,9 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                                 }
                             })
                         }
-                    </div>
+                    </div> */}
 
-                    {uniquePornstars.length>=1 && <div className='flex items-center py-2'>
+                    {uniquePornstars.length >= 1 && <div className='flex items-center py-2'>
                         <span className='font-semibold text-lg'>Pornstar:</span>
                         {uniquePornstars.map(pornstars => {
                             return (
@@ -231,18 +245,19 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                         <MinusIcon className={`icon hover:scale-100 ${MinusVisible}`} />
 
                     </div>
-                    <div className={`flex-wrap items-center justify-center md:justify-start ${screenshotlayoutToggle} `}>
+                    <div className={`flex-wrap items-center justify-center md:justify-start  ${screenshotlayoutToggle} `}>
                         {videolink_qualities_screenshots.screenshotsArray.map(shot => {
                             return (
-                                <div className='pr-1' key={shot}>
+                                <div onClick={() => { seekTimeOnclick(shot) }} className='p-1 relative' key={shot}>
                                     <img
                                         className='rounded'
                                         alt='loading'
-                                        src={shot}
+                                        src={shot.url}
                                         layout='fixed'
                                         height={108}
                                         width={192}
                                     ></img>
+                                    <strong className='absolute bottom-0 right-0 text-white m-2 bg-transparent bg-black bg-opacity-50 text-sm '>{shot.seekTime}</strong>
                                 </div>
                             )
                         })}
@@ -386,7 +401,6 @@ export async function getServerSideProps(context) {
                 })
             }
         }
-        console.log(relatedVideos.length);
 
 
     }
@@ -488,11 +502,20 @@ export async function getServerSideProps(context) {
         }
 
 
+        var sreenshots = []
+        var seektime = []
         $('.timeline div span img').each((i, el) => {
-
             const data = $(el).attr("data-src")
-            screenshotsArray.push(data)
+            sreenshots.push(data)
         })
+        $('.timeline div strong').each((i, el) => {
+            const data = $(el).text()
+            seektime.push(data)
+        })
+
+        for (let index = 0; index < sreenshots.length; index++) {
+            screenshotsArray.push({ url: sreenshots[index], seekTime: seektime[index] })
+        }
 
 
         $('.cat .ent a').each((i, el) => {

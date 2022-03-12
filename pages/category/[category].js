@@ -177,8 +177,10 @@ export async function getServerSideProps(context) {
   }
 
 
-  await scrape(`https://spankbang.com/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}/${page}/`)
+  await scrape(`https://spankbang.com/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}/${page}/?o=hot`)
 
+
+  console.log(`https://spankbang.com/category/${category.substring(0, category.indexOf("**")).toLowerCase().trim()}/${page}/?o=hot`);
 
 
 

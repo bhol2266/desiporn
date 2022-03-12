@@ -227,7 +227,7 @@ function Index() {
             <div className={`grid grid-cols-2 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
                 {jsonData.map(category => {
                     return (
-                        <a key={category.name} href={`/category/${category.name.toLowerCase().trim()}**1`}>
+                        <a key={category.name} href={`/category/${category.name.toLowerCase().trim().substring(0, category.name.indexOf('.png'))}**1`}>
                             <div className='  relative m-1 sm:m-2  hover:scale-105 transform transition duration-150  ' >
                                 <img
                                     className='rounded w-full object-cover aspect-box'
