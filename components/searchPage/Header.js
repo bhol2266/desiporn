@@ -222,10 +222,10 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                 <SearchIcon className='icon text-red-500' />
                 <div className='flex  '>
                     <p className='text-xl md:2xl pl-1 pr-1 flex-grow'>{currentPage === 'searchPage' ? "Search:" : "Category:"}</p>
-                    <p className='text-xl md:2xl pl-1 pr-1 font-semibold  '>{keyword.toUpperCase()}</p>
+                    <p className='text-xl md:2xl pl-1 pr-1 font-semibold text-green-900  '>{keyword.toUpperCase()}</p>
 
                 </div>
-                <p className='text-xl  pl-1 pr-1 font-bold flex-grow  text-right '>{`PAGE-${pageNumber}`}</p>
+                <p className='text-xl  pl-1 pr-1 font-bold flex-grow  text-right text-green-900 '>{`PAGE-${pageNumber}`}</p>
             </div>
 
 
