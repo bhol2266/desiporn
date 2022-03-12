@@ -194,7 +194,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                                 if (key.length >= 1) {
 
                                     return (
-                                        <a key={key} href={`/search/${key.trim()}`}>
+                                        <a key={key} href={`/search/${key.trim()}**1`}>
                                             <p className='pl-1 pr-1 text-xs md:text-sm ml-1 mt-1 cursor-pointer hover:bg-gray-300 rounded bg-yellow-100 border-gray-400 border-2'>{key}</p>
                                         </a>
                                     )

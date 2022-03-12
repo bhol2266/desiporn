@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import jsonData from "../../JsonData/categoryImages/data.json"
 
 
 
@@ -224,19 +225,21 @@ function Index() {
             </p>
 
             <div className={`grid grid-cols-2 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
-                {categories.map(category => {
+                {jsonData.map(category => {
                     return (
-                        <a key={category.Title} href={`/category/${category.Title.toLowerCase().trim()}**1`}>
+                        <a key={category.name} href={`/category/${category.name.toLowerCase().trim()}**1`}>
                             <div className='  relative m-1 sm:m-2  hover:scale-105 transform transition duration-150  ' >
                                 <img
                                     className='rounded w-full object-cover aspect-box'
                                     alt='loading'
-                                    src={`/categorypics/${category.Title}.png`}
-
+                                    src={category.url}
+                                    loading="lazy"
                                 ></img>
-                                <p className='rounded-b absolute text-md sm:text-lg font-bold p-1 bottom-0 w-full text-center  z-10 text-white bg-transparent bg-black bg-opacity-50'>{category.Title}</p>
+                                <p className='rounded-b absolute text-md sm:text-lg font-bold p-1 bottom-0 w-full text-center  z-10 text-white bg-transparent bg-black bg-opacity-50'>{category.name.charAt(0).toUpperCase() + category.name.substring(0, category.name.indexOf('.png')).substring(1)}</p>
                             </div>
                         </a>
+
+                        // items[i].charAt(0).toUpperCase() + items[i].substring(1);
 
 
                     )

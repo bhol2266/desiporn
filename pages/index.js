@@ -9,6 +9,9 @@ import React from 'react'
 
 import videosContext from '../context/videos/videosContext'
 
+import { db, storage } from '../firebase'
+import { ref, uploadString, getDownloadURL, uploadBytes } from "firebase/storage";
+
 export default function Home() {
 
   const { setcurrentLocation } = useContext(videosContext);
@@ -52,7 +55,44 @@ export default function Home() {
     fetchData()
   }, []);
 
+  //Upload images to firebase storages
+  // const [image, setimage] = useState(null)
+  // const [Url, setUrl] = useState(null)
 
+  // const handleOnchange = (e) => {
+  //   var array = []
+  //   for (let index = 0; index < 50; index++) {
+  //     if (e.target.files[index]) {
+  //       array.push(e.target.files[index])
+  //     }
+  //   }
+  //   setimage(array)
+
+  // }
+  // const submit = () => {
+
+  //   var array = []
+
+  //   for (let index = 0; index < image.length; index++) {
+
+  //     const imageref = ref(storage, `categories/${image[index].name}`)
+  //     uploadBytes(imageref, image[index]).then(() => {
+  //       getDownloadURL(imageref).then((url_link) => {
+  //         setUrl(url_link)
+  //         array.push({ name: image[index].name, url: url_link })
+  //         console.log(`Completed ${index}: ${url_link}`);
+  //         if (index === 47) {
+  //           console.log(array);
+  //         }
+  //       }).catch(error => {
+  //         console.log(error);
+  //       })
+  //     }).catch(error => {
+  //       console.log(error);
+  //     })
+  //   }
+
+  // }
   return (
     <div >
       <Head>
@@ -61,7 +101,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
+     
       <main className="flex ">
         <Sidebar />
         <div>
@@ -77,7 +117,7 @@ export default function Home() {
             {pages.map((pagenumber, index) => {
 
               return (
-                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber) }} className={`${pagenumber===currentPageNumberURL ? "bg-yellow-500":""}px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
+                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber) }} className={`${pagenumber === currentPageNumberURL ? "bg-yellow-500" : ""}px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
                   {pagenumber}
                 </p>
 
