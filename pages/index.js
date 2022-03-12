@@ -124,7 +124,7 @@ export default function Home() {
             {pages.map((pagenumber, index) => {
 
               return (
-                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber);scrollTop() }} className={`${pagenumber === currentPageNumberURL ? "bg-yellow-200" : ""} px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
+                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber);scrollTop() }} className={`${pagenumber === currentPageNumberURL ? "bg-yellow-200 px-3" : "px-1"}  sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
                   {pagenumber}
                 </p>
 
