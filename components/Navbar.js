@@ -210,7 +210,7 @@ function Navbar() {
 
 
             </div>
-            <div className='flex w-full items-start justify-around mb-1 bg-green-100 shadow-lg md:hidden '>
+            <div className='grid grid-cols-3 items-center mb-1 bg-green-100 shadow-lg md:hidden '>
 
                 <Link href='/'>
                     <a >

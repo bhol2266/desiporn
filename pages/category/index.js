@@ -230,9 +230,9 @@ function Index() {
                     return (
                         <Link key={category.name} href={`/category/${category.name.toLowerCase().trim().substring(0, category.name.indexOf('.png'))}**1`}>
                             <a >
-                                <div className='  relative m-1 sm:m-2  hover:scale-105 transform transition duration-150  ' >
+                                <div className='  relative m-1 sm:m-2  hover:scale-105 transform transition duration-150 rounded   aspect-box  ' >
                                     <img
-                                        className='rounded w-full object-cover aspect-box'
+                                        className='object-cover w-full'
                                         alt='loading'
                                         src={category.url}
                                         loading="lazy"
