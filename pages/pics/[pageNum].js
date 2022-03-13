@@ -10,6 +10,7 @@ import BannerAds from "../../components/Ads/BannerAds";
 import Outstreams from "../../components/Ads/Outstream";
 import PicsThumbnail from "../../components/PicsThumbnail";
 import videosContext from '../../context/videos/videosContext';
+import Link from 'next/link'
 
 
 
@@ -24,7 +25,7 @@ function Pics({ dload_links }) {
     var previousPageNumber = +pageNum - 1;
 
 
-   
+
 
 
 
@@ -59,15 +60,18 @@ function Pics({ dload_links }) {
             </div>
 
             <div className="flex items-center justify-center w-fit mx-auto p-1  space-x-3 mt-4 mb-4 ">
-                <a href={`/pics/${previousPageNumber}`}>
-                    <ArrowLeftIcon className={`${pageNum == 1 ? "hidden" : ""}  sm:w-16 w-12 cursor-pointer hover:bg-red-700 bg-red-500 rounded-lg  text-white`} />
-                </a>
+                <Link href={`/pics/${previousPageNumber}`}>
+                    <a href={`/pics/${previousPageNumber}`}>
+                        <ArrowLeftIcon className={`${pageNum == 1 ? "hidden" : ""}  sm:w-16 w-12 cursor-pointer hover:bg-red-700 bg-red-500 rounded-lg  text-white`} />
+                    </a>
+                </Link>
 
-                <a href={`/pics/${nextPageNumber}`}>
+                <Link href={`/pics/${nextPageNumber}`}>
+                    <a >
+                        <ArrowRightIcon className={`${pageNum == 60 ? "hidden" : ""}  sm:w-16 w-12 cursor-pointer hover:bg-red-700 bg-red-500 rounded-lg  text-white`} />
 
-                    <ArrowRightIcon className={`${pageNum == 60 ? "hidden" : ""}  sm:w-16 w-12 cursor-pointer hover:bg-red-700 bg-red-500 rounded-lg  text-white`} />
-
-                </a>
+                    </a>
+                </Link>
             </div>
 
 
@@ -167,7 +171,8 @@ export async function getServerSideProps(context) {
 
     }
 
-    await scrape(`https://hotdesipics.co/page/${pageNum}/`)
+    await scrape(`https://hotdesipics.co/main/page/${pageNum}/`)
+    console.log(`https://hotdesipics.co/main/page/${pageNum}/`);
 
 
     return {

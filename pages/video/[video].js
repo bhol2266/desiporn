@@ -11,29 +11,20 @@ import {
     ThumbUpIcon, ClockIcon, FilmIcon, EyeIcon, PlusIcon, MinusIcon, CogIcon
 } from '@heroicons/react/solid';
 import { useRef } from 'react';
+import { DeviceTabletIcon } from '@heroicons/react/outline';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 
-function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality, relatedVideos, pornstar }) {
+function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality, relatedVideos, pornstar, video_details }) {
 
     let uniquePornstars = pornstar.filter((element, index) => {
         return pornstar.indexOf(element) === index;
     });
 
-
-
-
     const videoPlayerRef = useRef(null)
-
-    useEffect(() => {
-        setvideo_details(JSON.parse(localStorage.getItem('videoplayer')))
-    }, [])
-
-
-    const [video_details, setvideo_details] = useState({});
     const [screenshotlayoutToggle, setscreenshotlayoutToggle] = useState('hidden')
     const [PlusVisible, setPlusVisible] = useState('flex')
     const [MinusVisible, setMinusVisible] = useState('hidden')
@@ -101,12 +92,8 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                 <p className='text-2xl pl-2 '></p>
 
 
-                <div className='flex space-x-2 sm:space-x-6'>
+                <div className='flex pl-1'>
 
-                    <div className='flex items-center'>
-                        <ClockIcon className='icon hover:scale-100' />
-                        <p className='text-xs font-bold'>{video_details.duration}</p>
-                    </div>
                     <div className='flex items-center'>
                         <FilmIcon className='icon hover:scale-100' />
                         {videolink_qualities_screenshots.video_qualities_available.map(quality => {
@@ -142,7 +129,11 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                         <div className="flex justify-around items-center space-x-2 ">
 
                             <div className='flex items-center'>
-                                <EyeIcon className="icon text-black-400" />
+                                <ClockIcon className='icon hover:scale-100 text-red-700' />
+                                <p className='text-xs font-bold'>{video_details.duration}</p>
+                            </div>
+                            <div className='flex items-center'>
+                                <EyeIcon className="icon text-blue-600" />
                                 <p className='text-xs font-bold'>{video_details.views.length > 1 ? video_details.views : "46513"}</p>
                             </div>
                             <div className='flex items-center'>
@@ -310,6 +301,7 @@ export async function getServerSideProps(context) {
     var preloaded_video_quality = ''
     var relatedVideos = []
     var pornstar = []
+    var videodetails = {}
 
 
 
@@ -327,21 +319,21 @@ export async function getServerSideProps(context) {
 
 
 
-        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+        $('.right .video-item picture img').each((i, el) => {
 
             const data = $(el).attr("data-src")
             thumbnailArray.push(data)
 
 
         })
-        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+        $('.right .video-item picture img').each((i, el) => {
 
             const data = $(el).attr("alt")
             TitleArray.push(data)
 
 
         })
-        $('.video-list.video-rotate .video-item .l').each((i, el) => {
+        $('.right .video-item .l').each((i, el) => {
 
             const data = $(el).text()
             durationArray.push(data)
@@ -349,7 +341,7 @@ export async function getServerSideProps(context) {
 
 
 
-        $('.video-list.video-rotate .video-item .stats').each((i, el) => {
+        $('.right .video-item .stats').each((i, el) => {
 
             const views = $(el).children().eq(1).text()
 
@@ -365,7 +357,7 @@ export async function getServerSideProps(context) {
         })
 
 
-        $('.video-list.video-rotate .video-item picture img').each((i, el) => {
+        $('.right .video-item picture img').each((i, el) => {
 
             const data = $(el).attr("data-preview")
             previewVideoArray.push(data)
@@ -373,7 +365,7 @@ export async function getServerSideProps(context) {
 
 
 
-        $('.video-list.video-rotate .video-item').each((i, el) => {
+        $('.right .video-item').each((i, el) => {
 
             const data = $(el).children().eq(1).attr("href")
             if (data) {
@@ -414,7 +406,6 @@ export async function getServerSideProps(context) {
         var video_qualities_available_withURL = []
         var screenshotsArray = []
         var video_qualities_available = []
-
 
         var tagsArray = []
         var categoriesArray = []
@@ -532,6 +523,48 @@ export async function getServerSideProps(context) {
         })
 
 
+        // This is the data for video Details which was getting from localstorage previosly
+        var Title = ''
+        var duration = ''
+        var likedPercent = ''
+        var thumbnail = ''
+        var views = ''
+        $('.left h1').each((i, el) => {
+
+            const data = $(el).text()
+            Title = data
+        })
+        $('.i-length').each((i, el) => {
+
+            const data = $(el).text()
+            duration = data
+        })
+        $('.rate').each((i, el) => {
+
+            const data = $(el).text()
+            likedPercent = data
+        })
+        $('.play_cover img').each((i, el) => {
+
+            const data = $(el).attr('src')
+            thumbnail = data
+        })
+        $('.i-plays').each((i, el) => {
+
+            const data = $(el).text()
+            views = data
+        })
+
+        videodetails = {
+            Title: Title,
+            duration: duration,
+            likedPercent: likedPercent,
+            thumbnail: thumbnail,
+            views: views,
+        }
+
+
+
 
 
 
@@ -550,6 +583,7 @@ export async function getServerSideProps(context) {
 
 
     await scrape2(`https://spankbang.com/${keyy}/video/${title}`)
+    console.log(`https://spankbang.com/${keyy}/video/${title}`);
 
 
 
@@ -559,7 +593,8 @@ export async function getServerSideProps(context) {
             videolink_qualities_screenshots: finalDataArray,
             preloaded_video_quality: preloaded_video_quality,
             relatedVideos: relatedVideos,
-            pornstar: pornstar
+            pornstar: pornstar,
+            video_details: videodetails
         }
     }
 
