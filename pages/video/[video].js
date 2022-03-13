@@ -89,16 +89,14 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
 
             {video_details.Title && <div>
-                <p className='text-2xl pl-2 '></p>
 
+                <div className='flex pl-1 text-sm md:text-lg'>
 
-                <div className='flex pl-1'>
-
-                    <div className='flex items-center'>
-                        <FilmIcon className='icon hover:scale-100' />
+                    <div className='flex items-center space-x-1'>
+                        <FilmIcon className='h-6 md:h-9 hover:scale-100 text-red-600' />
                         {videolink_qualities_screenshots.video_qualities_available.map(quality => {
                             return (
-                                <p key={quality} className='text-xs font-bold pr-1'>{quality}</p>
+                                <p key={quality} className=' font-bold pr-1'>{quality}</p>
 
                             )
                         })}
@@ -124,21 +122,23 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
                     </div>
 
-                    <div className="flex justify-between p-2  lg:pr-28 ">
+                    <div className="flex justify-between p-2 text-sm md:text-lg   ">
 
-                        <div className="flex justify-around items-center space-x-2 ">
+                        
 
-                            <div className='flex items-center'>
-                                <ClockIcon className='icon hover:scale-100 text-red-700' />
-                                <p className='text-xs font-bold'>{video_details.duration}</p>
+                        <div className="flex justify-around items-center space-x-2 md:space-x-4 md:text-lg ">
+
+                            <div className='flex items-center space-x-1'>
+                                <ClockIcon className='h-6 hover:scale-100 text-red-700 md:h-9' />
+                                <p className=' font-bold'>{video_details.duration}</p>
                             </div>
-                            <div className='flex items-center'>
-                                <EyeIcon className="icon text-blue-600" />
-                                <p className='text-xs font-bold'>{video_details.views.length > 1 ? video_details.views : "46513"}</p>
+                            <div className='flex items-center space-x-1'>
+                                <EyeIcon className="h-6 text-blue-600  md:h-9" />
+                                <p className=' font-bold'>{video_details.views.length > 1 ? video_details.views : "46513"}</p>
                             </div>
-                            <div className='flex items-center'>
-                                <ThumbUpIcon className="icon text-green-500" />
-                                <p className='text-xs font-bold'>{video_details.likedPercent}</p>
+                            <div className='flex items-center space-x-1'>
+                                <ThumbUpIcon className="h-6 text-green-500  md:h-9" />
+                                <p className=' font-bold'>{video_details.likedPercent}</p>
                             </div>
 
 
@@ -146,10 +146,10 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
                         </div>
                         <div>
                             <Menu as="div" className="relative  text-left">
-                                <div className=' w-fit'>
+                                <div className=' w-fit '>
                                     <Menu.Button className="flex items-center space-x-1">
-                                        <CogIcon className="icon text-gray-600" />
-                                        <p className='text-sm font-bold'>{Quality}</p>
+                                        <CogIcon className=" h-6 md:h-9 text-gray-600 " />
+                                        <p className=' font-bold text-sm md:text-lg'>{Quality}</p>
                                     </Menu.Button>
                                 </div>
 
