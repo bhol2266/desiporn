@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
 
 
-
 import Sidebar from '../components/Sidebar';
 import Videos from '../components/Videos';
 import React from 'react'
@@ -11,10 +10,11 @@ import videosContext from '../context/videos/videosContext'
 
 import { db, storage } from '../firebase'
 import { ref, uploadString, getDownloadURL, uploadBytes } from "firebase/storage";
+import RecommendedAds from '../components/Ads/RecommendedAds';
 
 export default function Home() {
- //Scroll to top
- const scrollTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  //Scroll to top
+  const scrollTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
   var videos = []
   const { setcurrentLocation } = useContext(videosContext);
@@ -114,17 +114,20 @@ export default function Home() {
           <p className="bg-yellow-100 rounded-lg border-2 border-gray-300 shadow-md p-2 m-1">
             Welcome to Chutlunds - the most comprehensive source of HD porn videos that you can currently find on the internet. Regardless of the XXX content that you prefer, you will surely find it all and loads more on Chutlund, the world&apos; s best porn tube site.
           </p>
+
+
           <p className='font-bold sm:text-2xl text-green-900  text-center p-1 pr-6'>{`PAGE :${currentPageNumberURL}`}</p>
+
           <Videos data={videos} />
           {/* PAGINATION */}
           <div className='flex justify-center items-center flex-wrap'>
 
-            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL - 1);scrollTop() }} className={`${currentPageNumberURL === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 m-1 text-white hover:bg-red-700`}>Previous</button>
+            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL - 1); scrollTop() }} className={`${currentPageNumberURL === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 m-1 text-white hover:bg-red-700`}>Previous</button>
 
             {pages.map((pagenumber, index) => {
 
               return (
-                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber);scrollTop() }} className={`${pagenumber === currentPageNumberURL ? "bg-yellow-200 px-3" : "px-1"}  sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
+                <p key={pagenumber} onClick={() => { setcurrentPageNumberURL(pagenumber); scrollTop() }} className={`${pagenumber === currentPageNumberURL ? "bg-yellow-200 px-3" : "px-1"}  sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded cursor-pointer `} >
                   {pagenumber}
                 </p>
 
@@ -132,13 +135,15 @@ export default function Home() {
             })}
 
 
-            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL + 1);scrollTop() }} className={`${currentPageNumberURL === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
+            <button onClick={() => { setcurrentPageNumberURL(currentPageNumberURL + 1); scrollTop() }} className={`${currentPageNumberURL === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
 
           </div>
         </div>
       </main>
 
       <footer >
+        <RecommendedAds />
+
 
       </footer>
     </div>

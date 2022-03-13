@@ -10,7 +10,7 @@ function Outstreams() {
     const { disclaimerShow, setdisclaimerShow } = context;
     return (
 
-        <div className="flex sticky bottom-0  justify-end w-full z-50 p-1">
+        <div className="flex sticky bottom-0 right-0  justify-end w-full z-10 p-1">
 
 
             <div className="sm:hidden">

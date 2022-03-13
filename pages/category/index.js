@@ -2,6 +2,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import jsonData from "../../JsonData/categoryImages/data.json"
 import Link from 'next/link'
+import RecommendedAds from '../../components/Ads/RecommendedAds';
+import BannerAds from '../../components/Ads/BannerAds';
+import Outstreams from '../../components/Ads/Outstream';
+
 
 
 
@@ -225,7 +229,8 @@ function Index() {
                 ChutLund covers all and every possible porn category that you can think of, even the kinkiest ones that might not be as popular as anal, teen, MILF, threesome and amateur. Regardless of your taste, you can easily find what suits your interest at any given time. Today, you might be all about blowjobs, tomorrow about BBW scenes and a week from now, you would like to experience interracial category - all this one ChutLund.
             </p>
 
-            <div className={`grid grid-cols-2 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
+            <BannerAds />
+            <div className={`grid grid-cols-3 p-1 sm:grid-cols-3 gap-x-1  md:grid-cols-4 lg:grid-cols-5`}>
                 {jsonData.map(category => {
                     return (
                         <Link key={category.name} href={`/category/${category.name.toLowerCase().trim().substring(0, category.name.indexOf('.png'))}**1`}>
@@ -248,6 +253,8 @@ function Index() {
                 })}
 
             </div>
+            <RecommendedAds />
+            <Outstreams/>
         </div>
     )
 }

@@ -10,7 +10,7 @@ function BannerAds() {
     const { disclaimerShow, setdisclaimerShow } = context;
     return (
 
-        <div className={`w-full flex items-center justify-center ${disclaimerShow ? "blur" : ""}`}>
+        <div className={`w-full flex items-center justify-center`}>
 
             {/* Mobile  */}
 

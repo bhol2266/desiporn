@@ -11,7 +11,9 @@ import {
     ThumbUpIcon, ClockIcon, FilmIcon, EyeIcon, PlusIcon, MinusIcon, CogIcon
 } from '@heroicons/react/solid';
 import { useRef } from 'react';
-import { DeviceTabletIcon } from '@heroicons/react/outline';
+import BannerAds from '../../components/Ads/BannerAds';
+import Outstream from '../../components/Ads/Outstream';
+import RecommendedAds from '../../components/Ads/RecommendedAds';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -124,7 +126,7 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
                     <div className="flex justify-between p-2 text-sm md:text-lg   ">
 
-                        
+
 
                         <div className="flex justify-around items-center space-x-2 md:space-x-4 md:text-lg ">
 
@@ -273,8 +275,8 @@ function Videoplayer({ videolink_qualities_screenshots, preloaded_video_quality,
 
 
 
-            {/* <Outstreams />
-            <RecommendedAds /> */}
+            <Outstream />
+            <RecommendedAds />
 
 
         </>

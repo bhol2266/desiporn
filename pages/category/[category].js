@@ -4,6 +4,8 @@ import fetchdata from 'node-fetch';
 import Sidebar from "../../components/Sidebar";
 import Videos from "../../components/Videos";
 import Header from '../../components/searchPage/Header'
+import RecommendedAds from '../../components/Ads/RecommendedAds';
+
 
 
 function Category({ video_collection, pages }) {
@@ -22,7 +24,7 @@ function Category({ video_collection, pages }) {
 
       </div>
 
-
+    
 
       {/* PAGINATION */}
       <div className='flex justify-center items-center flex-wrap'>
@@ -52,6 +54,7 @@ function Category({ video_collection, pages }) {
           <button className={`text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
         </a>
       </div>
+      <RecommendedAds/>
     </>
   )
 }

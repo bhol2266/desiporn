@@ -24,7 +24,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
     useEffect(() => {
         setcurrentPage(window.location.href.includes('/search/') ? "searchPage" : "categoryPage")
     }, [])
-    
+
 
 
     // This object is to display whats stuffs are filtered 
@@ -217,7 +217,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
     return (
 
-        <div className=' items-center  '>
+        <div >
             <div className='flex items-start md:pr-10 pt-2  sm:p-1 px-2 md:px-3'>
                 <SearchIcon className='icon text-red-500' />
                 <div className='flex  '>
@@ -242,7 +242,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                         )
                     })}
                 </div>
-                <div className='flex items-start    space-x-1 sm:space-x-2'>
+                <div className='flex items-start    space-x-1 sm:space-x-2 mb-1'>
 
                     <Menu as="div" className={` relative  text-left`}>
                         <div className=' w-fit'>
