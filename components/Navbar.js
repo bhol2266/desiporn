@@ -210,7 +210,7 @@ function Navbar() {
 
 
             </div>
-            <div className='grid grid-cols-3 items-center mb-1 bg-green-100 shadow-lg lg:hidden '>
+            <div className='flex justify-evenly items-center mb-1 bg-green-100 shadow-lg lg:hidden '>
 
                 <Link href='/'>
                     <a >
