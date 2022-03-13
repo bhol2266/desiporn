@@ -24,7 +24,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
     useEffect(() => {
         setcurrentPage(window.location.href.includes('/search/') ? "searchPage" : "categoryPage")
     }, [])
-
+    
 
 
     // This object is to display whats stuffs are filtered 
@@ -217,7 +217,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
 
     return (
 
-        <div >
+        <div>
             <div className='flex items-start md:pr-10 pt-2  sm:p-1 px-2 md:px-3'>
                 <SearchIcon className='icon text-red-500' />
                 <div className='flex  '>
@@ -232,7 +232,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
             <div className='w-fit   md:flex sm:p-1 px-2   '>
 
                 {/* This filtered applied bar */}
-                <div className='flex items-start  space-x-2 pr-2 mb-2 md:mb-0   '>
+                <div className='flex items-center flex-wrap justify-start  space-y-1  space-x-2 pr-2 mb-2 md:mb-0   '>
                     {Final_filteredArray.map(item => {
                         return (
                             <div key={item} onClick={() => { removefilter(item) }} className='border-2 pl-1  text-sm font-semibold hover:bg-red-200 cursor-pointer border-red-500 px-0.5 rounded flex items-center'>
@@ -242,7 +242,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                         )
                     })}
                 </div>
-                <div className='flex items-start    space-x-1 sm:space-x-2 mb-1'>
+                <div className='flex items-center justify-center flex-wrap mb-1    space-x-1 space-y-1 sm:space-x-2'>
 
                     <Menu as="div" className={` relative  text-left`}>
                         <div className=' w-fit'>
@@ -264,7 +264,7 @@ export default function Header({ keyword, pageNumber, filteredObjsArrayProps }) 
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                         >
-                            <Menu.Items className=" z-50 origin-top-right absolute right-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Items className=" z-50 origin-top-right absolute left-0 mt-2 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                                 {filter.map(item => {
                                     return (

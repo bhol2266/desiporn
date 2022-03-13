@@ -10,18 +10,18 @@ function BannerAds() {
     const { disclaimerShow, setdisclaimerShow } = context;
     return (
 
-        <div className={`w-full flex items-center justify-center`}>
+        <div className={`max-w-full flex items-center justify-center`}>
 
             {/* Mobile  */}
 
-            <div className='md:hidden'>
+            <div className='lg:hidden'>
                 <Banner zoneId={4580186} />
             </div>
 
 
             {/* Web  */}
 
-            <div className='hidden md:flex'>
+            <div className='hidden lg:flex'>
                 <Banner zoneId={4580008} />
             </div>
 

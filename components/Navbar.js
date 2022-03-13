@@ -210,23 +210,23 @@ function Navbar() {
 
 
             </div>
-            <div className='flex justify-evenly items-center mb-1 bg-green-100 shadow-lg md:hidden '>
+            <div className='grid grid-cols-3 items-center mb-1 bg-green-100 shadow-lg lg:hidden '>
 
                 <Link href='/'>
                     <a >
-                        <p className='font-bold  text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Home</p>
+                        <p className='font-bold sm:text-xl text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Home</p>
                     </a>
                 </Link>
 
                 <Link href='/category'>
                     <a >
-                        <p className='font-bold  text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Catergories</p>
+                        <p className='font-bold sm:text-xl text-green-900  text-center p-1 pr-6 hover:text-red-600  '>Catergories</p>
                     </a>
                 </Link>
-
+                
                 <Link href='/pics/1'>
                     <a >
-                        <p className='font-bold text-green-900  text-center p-1 pr-6 hover:text-red-600 '>Leaked Pictures</p>
+                        <p className='font-bold sm:text-xl text-green-900  text-center p-1 pr-6 hover:text-red-600 '>Leaked Pictures</p>
                     </a>
                 </Link>
 

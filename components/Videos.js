@@ -14,9 +14,9 @@ function Videos({ data }) {
 
 
     return (
-        <div>
+        <div className="">
             <BannerAds />
-            <div className='grid grid-cols-2 p-1 sm:pl-4 sm:pr-4 sm:grid-cols-2 gap-x-1  md:grid-cols-3 lg:grid-cols-4'
+            <div className='grid grid-cols-2 p-1  gap-x-1  sm:pl-4 sm:pr-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
             >
                 {
                     data.map(video => {
