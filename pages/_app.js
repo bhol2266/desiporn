@@ -4,11 +4,28 @@ import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import VideoState from '../context/videos/VideoState'
 import '../styles/globals.css'
+import '../styles/nProgress.css'
+import Head from 'next/head'
+import Router from 'next/router'
+import NProgress from 'nprogress'
 
 function MyApp({ Component, pageProps }) {
+
+  Router.events.on("routeChangeStart", (url) => {
+    console.log('routeChangeStart');
+    NProgress.start();
+
+  })
+  Router.events.on("routeChangeComplete", (url) => {
+    console.log('routeChangeComplete');
+    NProgress.done();
+  })
+
+
   return (
     <>
       <VideoState>
+      
         <Navbar />
         <div className=''>
           <Component {...pageProps} />

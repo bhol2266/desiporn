@@ -8,7 +8,7 @@ import {
 import Head from 'next/head';
 import { useState } from 'react';
 
-
+import Link from 'next/link'
 
 
 
@@ -60,60 +60,60 @@ function VideoThumbnail({ details }) {
 
     }
 
-    var key_title =video.hrefArray.substring(video.hrefArray.indexOf('com/')+4,video.hrefArray.length)
-    var keyy =key_title.substring(0,key_title.indexOf('/video'))
-    var title =key_title.substring(key_title.indexOf('video/')+6,key_title.length)
+    var key_title = video.hrefArray.substring(video.hrefArray.indexOf('com/') + 4, video.hrefArray.length)
+    var keyy = key_title.substring(0, key_title.indexOf('/video'))
+    var title = key_title.substring(key_title.indexOf('video/') + 6, key_title.length)
 
     return (
         <div className="">
             <Head>
                 <title>{video.TitleArray}</title>
             </Head>
-
-            <a href={`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray} >
-                <div className={` mb-2 animate-fade flex   flex-col justify-center  cursor-pointer  shadow-md  border-2 rounded-lg overflow-hidden transform transition duration-150 bg-white  `}>
-
-
-
-                    <video
-                        className={`w-full aspect-video object-contain ${spinnerloader? "":""} lazy`}
-                        onMouseOver={playMovie}
-                        onMouseLeave={stopMovie}
-                        src={video.previewVideoArray}
-                        poster={video.thumbnailArray}
-                        preload='none'
-                        muted="muted"
-                    />
+            <Link href={`/video/${keyy}*${title}`} onClick={OnClickHandler} data-title={video.TitleArray}>
+                <a >
+                    <div className={` mb-2 animate-fade flex   flex-col justify-center  cursor-pointer  shadow-md  border-2 rounded-lg overflow-hidden transform transition duration-150 bg-white  `}>
 
 
 
-                    <p className=" font-semibold text-sm sm:text-md  pl-1 pt-1  whitespace-nowrap overflow-hidden  ">{video.TitleArray}</p>
+                        <video
+                            className={`w-full aspect-video object-contain ${spinnerloader ? "" : ""} lazy`}
+                            onMouseOver={playMovie}
+                            onMouseLeave={stopMovie}
+                            src={video.previewVideoArray}
+                            poster={video.thumbnailArray}
+                            preload='none'
+                            muted="muted"
+                        />
 
 
-                    <div className="flex justify-between  sm:scale-90 sm:justify-around lg:space-x-4 lg:justify-start
+
+                        <p className=" font-semibold text-sm sm:text-md  pl-1 pt-1  whitespace-nowrap overflow-hidden  ">{video.TitleArray}</p>
+
+
+                        <div className="flex justify-between  sm:scale-90 sm:justify-around lg:space-x-4 lg:justify-start
                         overflow-hidden">
 
-                        <div className="flex justify-center items-center ">
-                            <ClockIcon className="icon text-red-500" />
-                            <p>{video.durationArray}</p>
-                        </div>
-                        <div className="flex justify-center items-center ">
-                            <EyeIcon className="icon text-yellow-400" />
-                            <p>{video.viewsArray}</p>
-                        </div>
+                            <div className="flex justify-center items-center ">
+                                <ClockIcon className="icon text-red-500" />
+                                <p>{video.durationArray}</p>
+                            </div>
+                            <div className="flex justify-center items-center ">
+                                <EyeIcon className="icon text-yellow-400" />
+                                <p>{video.viewsArray}</p>
+                            </div>
 
-                        <div className="flex justify-center items-center ">
-                            <ThumbUpIcon className="icon text-green-500" />
-                            <p>{video.likedPercentArray}</p>
-                        </div>
+                            <div className="flex justify-center items-center ">
+                                <ThumbUpIcon className="icon text-green-500" />
+                                <p>{video.likedPercentArray}</p>
+                            </div>
 
+
+                        </div>
 
                     </div>
 
-                </div>
-
-            </a>
-            {/* </Link> */}
+                </a>
+            </Link>
 
 
 

@@ -18,11 +18,9 @@ function Category({ video_collection, pages, query, keyword, currentPage, filter
   const currentPageNumberURL = currentPage
 
   const context = useContext(videosContext);
-  const { spinnerLoading, setSpinner, } = context;
 
 
   const clickHandler = (pageNumber) => {
-    setSpinner(true)
 
 
     var queryObj = {
@@ -45,55 +43,49 @@ function Category({ video_collection, pages, query, keyword, currentPage, filter
   return (
 
     <>
-      {spinnerLoading &&
-        <div className="flex justify-center mx-auto mt-10 ">
-          <BeatLoader loading size={25} color={'red'} />
+
+      <div>
+
+        <Header keyword={keyword} pageNumber={currentPageNumberURL} filteredObjsArrayProps={filteredObjsArray} />
+        <div className="flex">
+          <Sidebar />
+          <Videos data={video_collection} />
+
         </div>
-      }
-
-      {!spinnerLoading &&
-        <div>
-
-          <Header keyword={keyword} pageNumber={currentPageNumberURL} filteredObjsArrayProps={filteredObjsArray} />
-          <div className="flex">
-            <Sidebar />
-            <Videos data={video_collection} />
-
-          </div>
 
 
-          {/* PAGINATION */}
-          <div className='flex justify-center items-center flex-wrap'>
+        {/* PAGINATION */}
+        <div className='flex justify-center items-center flex-wrap'>
 
-            <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) - 1) }} className={`${parseInt(currentPageNumberURL) === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
+          <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) - 1) }} className={`${parseInt(currentPageNumberURL) === 1 ? "hidden" : ""}  text-sm sm:text-med border-2 sm:mx-4 border-gray-500 rounded bg-red-500 p-1 pt-1 pb-1 text-white hover:bg-red-700`}>Previous</button>
 
-            {pages.map((pagenumber, index) => {
+          {pages.map((pagenumber, index) => {
 
-              if (index != 0 && index != pages.length - 1) {
+            if (index != 0 && index != pages.length - 1) {
 
-                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                if (format.test(pagenumber)) {
-                  return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
+              var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+              if (format.test(pagenumber)) {
+                return <p className='px-2 sm:p-2 ml-1 border-2 border-red-600 mb-1  rounded '>{pagenumber}</p>
 
-                } else {
-                  return (
-                    <p key={pagenumber} onClick={() => { clickHandler(pagenumber) }} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} >
-                      {pagenumber}
-                    </p>
+              } else {
+                return (
+                  <p key={pagenumber} onClick={() => { clickHandler(pagenumber) }} className={`px-1 sm:p-2 ml-1  border-2 border-red-600 mb-1 hover:bg-red-200 rounded `} >
+                    {pagenumber}
+                  </p>
 
-                  )
-                }
+                )
               }
+            }
 
 
-            })}
+          })}
 
 
-            <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) + 1) }} className={`${parseInt(currentPageNumberURL) === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
+          <button onClick={() => { clickHandler(parseInt(currentPageNumberURL) + 1) }} className={`${parseInt(currentPageNumberURL) === parseInt(pages[pages.length - 2]) ? "hidden" : ""}  text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
 
-          </div>
         </div>
-      }
+      </div>
+
 
 
     </>
