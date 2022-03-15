@@ -5,6 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import Videos from "../../components/Videos";
 import Header from '../../components/searchPage/Header'
 import RecommendedAds from '../../components/Ads/RecommendedAds';
+import Head from 'next/head'
 
 
 
@@ -17,6 +18,11 @@ function Category({ video_collection, pages }) {
 
   return (
     <>
+      <Head>
+        <title>{`${category.substring(0, category.indexOf("**")).toUpperCase()} Porn Videos`}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+      </Head>
       <Header keyword={category.substring(0, category.indexOf("**"))} pageNumber={currentPageNumberURL} />
       <div className="flex">
         <Sidebar />
@@ -24,7 +30,7 @@ function Category({ video_collection, pages }) {
 
       </div>
 
-    
+
 
       {/* PAGINATION */}
       <div className='flex justify-center items-center flex-wrap'>
@@ -54,7 +60,7 @@ function Category({ video_collection, pages }) {
           <button className={`text-sm sm:text-med ml-1 border-2 sm:mx-4  border-gray-500 rounded bg-red-500 p-4 pt-1 pb-1 text-white hover:bg-red-700`}>Next</button>
         </a>
       </div>
-      <RecommendedAds/>
+      <RecommendedAds />
     </>
   )
 }

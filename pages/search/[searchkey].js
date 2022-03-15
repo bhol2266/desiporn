@@ -5,6 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import Videos from "../../components/Videos";
 import Header from '../../components/searchPage/Header'
 import RecommendedAds from '../../components/Ads/RecommendedAds';
+import Head from 'next/head'
 
 
 function Category({ video_collection, pages }) {
@@ -16,6 +17,13 @@ function Category({ video_collection, pages }) {
 
   return (
     <>
+    
+
+      <Head>
+        <title>{`${searchkey.substring(0, searchkey.indexOf("**")).toUpperCase()} Porn Videos`}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+      </Head>
       <Header keyword={searchkey.substring(0, searchkey.indexOf("**"))} pageNumber={currentPageNumberURL} />
       <div className="flex">
         <Sidebar />

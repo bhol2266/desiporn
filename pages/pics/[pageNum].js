@@ -11,7 +11,7 @@ import Outstreams from "../../components/Ads/Outstream";
 import PicsThumbnail from "../../components/PicsThumbnail";
 import videosContext from '../../context/videos/videosContext';
 import Link from 'next/link'
-
+import Head from 'next/head'
 
 
 function Pics({ dload_links }) {
@@ -50,6 +50,12 @@ function Pics({ dload_links }) {
 
     return (
         <div>
+
+            <Head>
+                <title>Leaked Pictures</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+            </Head>
 
             <BannerAds />
 

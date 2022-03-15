@@ -12,7 +12,7 @@ import {
     XIcon
 } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
-
+import Head from 'next/head'
 
 function Album({ dload_links }) {
 
@@ -79,6 +79,11 @@ function Album({ dload_links }) {
     return (
 
         <>
+            <Head>
+                <title>{album.replace(/-/g," ")}</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+            </Head>
             {/* <BannerAds /> */}
             {/* <Outstreams /> */}
             <p className={`${CarauselShow === "hidden" ? "" : "hidden"} font-semibold text-md sm:text-lg md:text-2xl text-center p-1`}>{title}</p>

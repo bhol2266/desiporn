@@ -10,6 +10,7 @@ import { useContext, useState } from 'react';
 import videosContext from '../../context/videos/videosContext';
 import Router from 'next/router'
 import RecommendedAds from '../../components/Ads/RecommendedAds';
+import Head from 'next/head'
 
 function Category({ video_collection, pages, query, keyword, currentPage, filteredObjsArray }) {
 
@@ -46,7 +47,11 @@ function Category({ video_collection, pages, query, keyword, currentPage, filter
     <>
 
       <div>
+      <Head>
+        <title>{keyword}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
+      </Head>
         <Header keyword={keyword} pageNumber={currentPageNumberURL} filteredObjsArrayProps={filteredObjsArray} />
         <div className="flex">
           <Sidebar />

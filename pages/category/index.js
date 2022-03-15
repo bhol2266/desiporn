@@ -5,7 +5,7 @@ import Link from 'next/link'
 import RecommendedAds from '../../components/Ads/RecommendedAds';
 import BannerAds from '../../components/Ads/BannerAds';
 import Outstreams from '../../components/Ads/Outstream';
-
+import Head from 'next/head'
 
 
 
@@ -221,6 +221,11 @@ function Index() {
     return (
 
         <div className="">
+            <Head>
+                <title>Categories</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+            </Head>
             <div className='flex items-center p-2 m-1 justify-between bg-gray-200 rounded-lg border-2 border-gray-300 shadow-md'>
                 <p className='border-black border-2 rounded-md text-2xl font-bold  '></p>
                 <p className='flex-grow text-3xl  ml-4'>Porn Categories</p>
@@ -254,7 +259,7 @@ function Index() {
 
             </div>
             <RecommendedAds />
-            <Outstreams/>
+            <Outstreams />
         </div>
     )
 }

@@ -47,7 +47,6 @@ export default function Home() {
           try {
             const response = await fetch('https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0')
             location = await response.json()
-            console.log(location);
 
           } catch (error) {
             location = { country_name: 'india' }
